@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<h1>Emotion slider</h1>
+<p>kindly tell us how emotional you are</p>
+
+<form action="/processEmotions" method="post">
+  <input type="range" min="1" max="10" value="50" class="slider" id="myRange">
+  {{!-- <p>Value: <span id="demo"></span></p> --}}
+  <input type="number" id="demo" name="emotion">
+  <input type="submit">
+</form>
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.value = slider.value;
+
+slider.oninput = function() {
+  output.value = this.value;
+}
+</script>
+
+</body>
+</html>

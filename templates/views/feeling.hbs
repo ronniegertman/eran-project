@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="/js/feeling.js" defer></script>
+    </head>
+        <body>
+            <h1>Welcome {{username}}</h1>
+            <h2>How are you feeling today?</h2>
+            <button id="1" onclick="handleButton(this)" title="I want to cry">😭</button>
+            <button id="2" onclick="handleButton(this)" title="I am depressed">🥺</button>
+            <button id="3" onclick="handleButton(this)" title="I am happy">😃</button>
+            <button id="4" onclick="handleButton(this)" title="I am stressed">😰</button>
+            <button id="5" onclick="handleButton(this)" title="I am disappointed">😩</button>
+            <button id="6" onclick="handleButton(this)" title="I am calm">🙂</button>
+            <form action="/range" method="post">
+                <input type="hidden" id="7" name="hiddenValue" value="hello">
+                {{!-- <input type="range" min="1" max="100" value="50" class="slider" id="myRange"> --}}
+
+                <input type="submit">
+            </form>
+
+        </body>
+</html>
