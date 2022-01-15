@@ -43,7 +43,7 @@ app.post('/range', (req, res) => {
     
 
 app.post('/processEmotions', (req, res) => {
-    const data = fs.readFileSync('C:/Users/gali/Desktop/eran/src/feeling.json')
+    const data = fs.readFileSync(path.join(__dirname, 'feeling.json'))
     const feelings = JSON.parse(data)
     const emotionality = req.body.emotion
     if(emotionality >= 8 && (feelings["cry"] || feelings["depressed"] || feelings["stressed"] || feelings["disappointed"])){
