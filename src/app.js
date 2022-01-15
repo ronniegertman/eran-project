@@ -6,6 +6,7 @@ const express = require('express')
 const hbs = require('hbs')
 const bodyParser = require('body-parser')
 const req = require('express/lib/request')
+const { compile } = require('hbs')
 
 
 
@@ -47,9 +48,16 @@ app.post('/processEmotions', (req, res) => {
     const feelings = JSON.parse(data)
     const emotionality = req.body.emotion
     if(emotionality >= 8 && (feelings["cry"] || feelings["depressed"] || feelings["stressed"] || feelings["disappointed"])){
-        res.send("emergency")
+        const time = new Date().getHours()
+        let message = ""
+        if(2<= time && time < 8){
+             message = "Eran is currently not availble via message/chat. Please call Eran 1201 or call 101"
+        }else{
+             message = "Please contact Eran via message/chat or a phone call to 1202"
+        }
+        res.render('emergency.hbs', { message })
     }else{
-        res.send("next...")
+        res.render('home.hbs')
     }
 })
 
