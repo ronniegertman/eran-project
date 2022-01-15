@@ -36,7 +36,7 @@ app.post('/welcome', (req, res) => {
 })
 
 app.post('/range', (req, res) => {
-    //fs.writeFileSync('C:/Users/gali/Desktop/eran/src/feeling.json', req.body.hiddenValue)
+    fs.writeFileSync(path.join(__dirname, 'feeling.json'), req.body.hiddenValue)
     res.render('range.hbs', {})
 })
 
