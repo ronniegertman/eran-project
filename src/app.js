@@ -26,7 +26,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use(express.json())
 
 
-
 app.get('/', (req, res) => {
     res.render('login.hbs', {})
 })
@@ -37,7 +36,7 @@ app.post('/welcome', (req, res) => {
 })
 
 app.post('/range', (req, res) => {
-    fs.writeFileSync('C:/Users/gali/Desktop/eran/src/feeling.json', req.body.hiddenValue)
+    //fs.writeFileSync('C:/Users/gali/Desktop/eran/src/feeling.json', req.body.hiddenValue)
     res.render('range.hbs', {})
 })
 
