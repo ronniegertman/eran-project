@@ -42,8 +42,16 @@ app.get('/signin', (req, res) => {
     res.render('signin.hbs', {})
 })
 
+
 app.get('/uploadNewThought', (req, res) => {
     res.render('uploadNewThought.hbs', {username: currentUser})
+})
+
+
+app.get('/viewYourThoughts', (req, res) => {
+    res.render('viewYourThoughts.hbs', {
+        username: currentUser
+    })
 })
 
 
