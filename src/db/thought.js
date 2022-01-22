@@ -35,6 +35,10 @@ function newThought(username, content, header, isPrivate) {
     
 }
 
+function findAllThoughts(username) {
+    return Thought.find({username})
+}
+
 function findThought(username, date) {
     return Thought.find({username, date})
     
@@ -42,5 +46,6 @@ function findThought(username, date) {
 
 module.exports = {
     newThought,
+    findAllThoughts,
     findThought
 }

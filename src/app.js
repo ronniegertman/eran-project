@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const {findUser, newUser, checkPassword} = require('./db/user')
-const {newThought} = require('./db/thought')
+const {newThought, findAllThoughts} = require('./db/thought')
 
 
 const express = require('express')
@@ -44,14 +44,34 @@ app.get('/signin', (req, res) => {
 
 
 app.get('/uploadNewThought', (req, res) => {
-    res.render('uploadNewThought.hbs', {username: currentUser})
+    res.render('uploadNewThought.hbs', {
+        username: currentUser
+    })
 })
 
 
 app.get('/viewYourThoughts', (req, res) => {
-    res.render('viewYourThoughts.hbs', {
-        username: currentUser
+    findAllThoughts(currentUser).then(thoughtsArray => {
+        if(thoughtsArray.length === 0){
+            return res.render('viewYourThoughts.hbs', {
+                username: currentUser,
+                message: 'There are no past thoughts made by this user. upload a new one from ',
+                link:'here',
+                thoughts: []
+            })
+        }
+    
+        res.render('viewYourThoughts.hbs', {
+            username: currentUser,
+            message: 'here are your thoughts',
+            thoughts: thoughtsArray
+        })
+    }).catch(err => {
+        res.send(err)
     })
+
+    
+   
 })
 
 
