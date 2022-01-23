@@ -50,17 +50,26 @@ app.get('/uploadNewThought', (req, res) => {
 })
 
 
+app.get('/yourThoughts', (req, res) => {
+    findAllThoughts(currentUser).then(thoughts => {
+        res.send(thoughts)
+    }).catch(err => {
+        console.log(err)
+    })
+})
+
+
 app.get('/viewYourThoughts', (req, res) => {
+    console.log('user', currentUser)
     findAllThoughts(currentUser).then(thoughtsArray => {
         if(thoughtsArray.length === 0){
             return res.render('viewYourThoughts.hbs', {
                 username: currentUser,
                 message: 'There are no past thoughts made by this user. upload a new one from ',
                 link:'here',
-                thoughts: []
             })
         }
-    
+
         res.render('viewYourThoughts.hbs', {
             username: currentUser,
             message: 'here are your thoughts',
@@ -169,7 +178,7 @@ app.post('/home', (req, res) => {
     newThought(currentUser, req.body.content, req.body.header).save().then((result) => {
         console.log( 'result ' , result)
     }).catch(err => {
-        console.catch(err)
+        console.log(err)
     })
     res.render('home.hbs', {username: currentUser})
 })
