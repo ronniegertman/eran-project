@@ -7,8 +7,6 @@ const {newThought, findAllThoughts} = require('./db/thought')
 const express = require('express')
 const hbs = require('hbs')
 const bodyParser = require('body-parser')
-const { use } = require('express/lib/application')
-const req = require('express/lib/request')
 
 
 const app = express()
@@ -29,8 +27,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   }))
 app.use(express.json())
 
+
 //handle users
 let currentUser
+
 
 //app.get()
 app.get('/', (req, res) => {
@@ -78,9 +78,13 @@ app.get('/viewYourThoughts', (req, res) => {
     }).catch(err => {
         res.send(err)
     })
+})
 
-    
-   
+
+app.get('/home', (req, res) => {
+    res.render('home.hbs', {
+        username: currentUser
+    })
 })
 
 
