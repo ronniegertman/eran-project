@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
         <body>
             <h1>Welcome back {{username}}!</h1><br><br>
             <h3>Your progress:</h3>
-            <p>always remember that we all have ups and downs</p>
+            <div>
+                <canvas id="myChart" style="position: relative; height:128px; width:100vw"></canvas>
+            </div>
+            <script src="/js/chart.js"></script>
+
             <br><br>
             <h3><a href="/uploadNewThought">Add a thought</a></h3><br><br>
 

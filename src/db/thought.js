@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const printDate = require('./date')
 
 mongoose.connect('mongodb://127.0.0.1:27017/Eran')
 
@@ -21,8 +22,8 @@ const Thought = mongoose.model('Thought', {
         required: true
     },
     date: {
-        type: Date,
-        default: new Date()
+        type: String,
+        default: new printDate(new Date()).get()
     },
     isPrivate:{
         type: Boolean,
