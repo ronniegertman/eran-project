@@ -201,6 +201,7 @@ app.post('/processEmotions', async (req, res) => {
 
 app.post('/home', async (req, res) => {
     try{
+        console.log('btn', req.body.chosen)
         const thought = await newThought(req.session.username, req.body.content, req.body.header).save()
         console.log(thought)
         res.render('home.hbs', {
