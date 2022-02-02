@@ -13,6 +13,7 @@ fetch('/emotionRates').then(respone => {
     dataArray.push(jsonArray[i].rate)
   }
 
+  console.log('script')
 
   //creating the chart
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -32,7 +33,18 @@ fetch('/emotionRates').then(respone => {
       },
 
       // Configuration options go here
-      options: {}
+      options: { tooltips: {
+        enabled: true,
+        mode: 'single',
+        callbacks: {
+            label: function(tooltipItems, data) { 
+                // return tooltipItems.yLabel + ' : ' + tooltipItems.xLabel + " Files";
+                console.log(tooltipItems)
+                console.log(data)
+                return 'Hello world'
+            }
+        }
+    }}
   });
 
 

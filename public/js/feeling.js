@@ -20,6 +20,8 @@ function handleButton(button){
     Myelement.setAttribute('value', JSON.stringify(toSend))
 }
 
+document.h
+
 
 
 

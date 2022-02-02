@@ -1,17 +1,15 @@
 const path = require('path')
 const fs = require('fs')
-const {findUser, newUser, checkPassword} = require('./db/user')
+const {findUser, newUser} = require('./db/user')
 const {newThought, findAllThoughts} = require('./db/thought')
 const {newRate, findAllRates} = require('./db/rate')
+const {authenticateToken, generateAccessToken} = require('./token')
 
 
 const express = require('express')
 const hbs = require('hbs')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt')
-const { parse } = require('path')
-const { use } = require('bcrypt/promises')
-const async = require('hbs/lib/async')
 
 
 const app = express()
@@ -118,9 +116,10 @@ app.post('/', async (req, res) => {
         const user = await findUser(username)
         if(user.length === 1){
             const password = req.body.password
-            const resArray = await checkPassword(username, password)
-            if(resArray.length === 1){
+            if(await bcrypt.compare(password, user[0].password)){
                 const sessData = req.session;
+                const token = await generateAccessToken(username)
+                res.setHeader('authorization', 'Bearer ' + token)
                 sessData.username = username;
                 res.render('feeling.hbs', {
                     username: req.session.username
@@ -146,8 +145,8 @@ app.post('/signin', async (req, res) => {
         const username = req.body.username
         const user = await findUser(username)
         if(user.length === 0 && req.body.password === req.body.repeatedPassword){
-            // const hashedPassword = bcrypt.hash(req.body.password, 8)
-            const myUser = await newUser(req.body.username, req.body.password, req.body.nickname)
+            const hashedPassword = await bcrypt.hash(req.body.password, 8)
+            const myUser = await newUser(req.body.username, hashedPassword, req.body.nickname)
             await myUser.save()
             res.render('login.hbs', {
                 message: 'User created successfully, please log in'
@@ -167,8 +166,12 @@ app.post('/signin', async (req, res) => {
 })
 
 
-app.post('/range', (req, res) => {
-    fs.writeFileSync(path.join(__dirname, 'feeling.json'), req.body.hiddenValue)
+app.post('/range', async (req, res) => {
+    const jsonObject = JSON.parse(req.body.hiddenValue)
+    const keysArray = Object.keys(jsonObject)
+    const feeling = keysArray.filter(key => jsonObject[key] === true)
+    req.session.feelings = feeling
+    // fs.writeFileSync(path.join(__dirname, 'feeling.json'), req.body.hiddenValue)
     res.render('range.hbs', {username: req.session.username})
 })
 
@@ -176,7 +179,7 @@ app.post('/range', (req, res) => {
 app.post('/processEmotions', async (req, res) => {
     const emotionality = req.body.emotion
     try{
-        const rate = await newRate(req.session.username, req.body.emotion)
+        const rate = await newRate(req.session.username, req.body.emotion, req.session.feelings)
         await rate.save()
     } catch(e){
         console.log(e)
@@ -201,8 +204,7 @@ app.post('/processEmotions', async (req, res) => {
 
 app.post('/home', async (req, res) => {
     try{
-        console.log('btn', req.body.chosen)
-        const thought = await newThought(req.session.username, req.body.content, req.body.header).save()
+        const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
         console.log(thought)
         res.render('home.hbs', {
             username: req.session.username
@@ -210,6 +212,11 @@ app.post('/home', async (req, res) => {
     } catch(e){
         console.log(e)
     }
+})
+
+
+app.get('/map', (req, res) => {
+    res.render('sample.hbs')
 })
 
 

@@ -25,14 +25,13 @@ const Thought = mongoose.model('Thought', {
         type: String,
         default: new printDate(new Date()).get()
     },
-    isPrivate:{
-        type: Boolean,
-        default: true
+    privacy: {
+        type: String
     }
 })
 
-function newThought(username, content, header, isPrivate) {
-    return new Thought({username, content, header, isPrivate})
+function newThought(username, content, header, privacy) {
+    return new Thought({username, content, header, privacy})
     
 }
 
@@ -40,13 +39,12 @@ function findAllThoughts(username) {
     return Thought.find({username})
 }
 
-function findThought(username, date) {
-    return Thought.find({username, date})
-    
+function findPublicThoughts(){
+    return Thought.find({privacy: 'public'})
 }
+
 
 module.exports = {
     newThought,
-    findAllThoughts,
-    findThought
+    findAllThoughts
 }

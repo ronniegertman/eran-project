@@ -19,12 +19,16 @@ const Rate = mongoose.model('Rate', {
     rate: {
         type: Number,
         required: true
+    },
+    feelings: {
+        type: Array,
+        default: []
     }
    
 })
 
-function newRate(username, rate) {
-    return new Rate({username, rate})
+function newRate(username, rate, feelings) {
+    return new Rate({username, rate, feelings})
     
 }
 

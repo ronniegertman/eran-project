@@ -1,16 +1,20 @@
-if(document.getElementById('privateForUser').checked) {
+const form = document.querySelector("form")
 
-    const Myelement = document.getElementById('1')
-    Myelement.setAttribute('value', 'private')
+function handleChangeEvent (event) {
+		if(document.getElementById('privateForUser').checked) {
+				const Myelement = document.getElementById('1')
+				Myelement.setAttribute('value', 'private')
 
-}else if(document.getElementById('publicForUser').checked) {
+		}else if(document.getElementById('publicForUser').checked) {
 
-    const Myelement = document.getElementById('1')
-    Myelement.setAttribute('value', 'public')
+				const Myelement = document.getElementById('1')
+				Myelement.setAttribute('value', 'public')
 
-}else{
+		}else if(document.getElementById('forEran').checked){
+				const Myelement = document.getElementById('1')
+				Myelement.setAttribute('value', 'eran')
 
-    const Myelement = document.getElementById('1')
-    Myelement.setAttribute('value', 'eran')
-
+		}
 }
+
+form.addEventListener("change", handleChangeEvent)
