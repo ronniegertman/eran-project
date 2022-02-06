@@ -46,5 +46,6 @@ function findPublicThoughts(){
 
 module.exports = {
     newThought,
-    findAllThoughts
+    findAllThoughts,
+    findPublicThoughts
 }

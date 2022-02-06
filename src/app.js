@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const {findUser, newUser} = require('./db/user')
-const {newThought, findAllThoughts} = require('./db/thought')
+const {newThought, findAllThoughts, findPublicThoughts} = require('./db/thought')
 const {newRate, findAllRates} = require('./db/rate')
 const {authenticateToken, generateAccessToken} = require('./token')
 
@@ -80,6 +80,26 @@ app.get('/viewYourThoughts', async (req, res) => {
 })
 
 
+app.get('/viewAllPublicThoughts', async (req, res) => {
+    try{
+        const thoughtsArray = await findPublicThoughts()
+        if (thoughtsArray.length === 0){
+            return res.render('viewAllThoughts.hbs', {
+                username: req.session.username,
+                message: 'Nobody has pulicly shared their thoughts yet',
+                link: 'Upload a thought here'
+            })
+        }
+        res.render('viewAllThoughts.hbs', {
+            username: req.session.username,
+            message: 'Here is what everybody is thinking about'
+        })
+    } catch(e){
+        res.send('error')
+    }
+})
+
+
 app.get('/home', (req, res) => {
     res.render('home.hbs', {
         username: req.session.username
@@ -105,6 +125,17 @@ app.get('/emotionRates', async (req, res) => {
         }
     } catch(e){
         console.log(e)
+    }
+})
+
+
+app.get('/allPublicThoughts', async (req, res) => {
+    try{
+        const publicThoughts = await findPublicThoughts()
+        res.send(publicThoughts)
+    } catch(e) {
+        console.log(e)
+        res.status(500).send({ error: 'Something went wrong'})
     }
 })
 
@@ -215,9 +246,9 @@ app.post('/home', async (req, res) => {
 })
 
 
-app.get('/map', (req, res) => {
-    res.render('sample.hbs')
-})
+// app.get('/map', (req, res) => {
+//     res.render('sample.hbs')
+// })
 
 
 app.get('*', (req, res) => {
