@@ -1,9 +1,9 @@
 const path = require('path')
 const fs = require('fs')
 const {findUser, newUser} = require('./db/user')
-const {newThought, findAllThoughts, findPublicThoughts} = require('./db/thought')
+const {newThought, findAllThoughts, findPublicThoughts, getThoughtById} = require('./db/thought')
 const {newRate, findAllRates} = require('./db/rate')
-const {authenticateToken, generateAccessToken} = require('./token')
+const isLoggedIn = require('./middleware/isLoggedIn')
 
 
 const express = require('express')
@@ -28,8 +28,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
   }))
+
 app.use(express.json())
 app.use(require("express-session")({secret: 'hello'}))  //setting up sessions for users
+app.use(isLoggedIn)
 
 
 //app.get()
@@ -100,6 +102,19 @@ app.get('/viewAllPublicThoughts', async (req, res) => {
 })
 
 
+app.get('/editThought/:id', async (req, res) => {
+    try{
+        const thoughtToUpdate = await getThoughtById(req.params.id)
+        res.render('editThought.hbs', {
+            header: thoughtToUpdate.header,
+            content: thoughtToUpdate.content
+        })
+    } catch(e){
+        res.send(e)
+    }
+})
+
+
 app.get('/home', (req, res) => {
     res.render('home.hbs', {
         username: req.session.username
@@ -149,8 +164,6 @@ app.post('/', async (req, res) => {
             const password = req.body.password
             if(await bcrypt.compare(password, user[0].password)){
                 const sessData = req.session;
-                const token = await generateAccessToken(username)
-                res.setHeader('authorization', 'Bearer ' + token)
                 sessData.username = username;
                 res.render('feeling.hbs', {
                     username: req.session.username
@@ -233,6 +246,16 @@ app.post('/processEmotions', async (req, res) => {
 })
 
 
+app.get('/emergency', (req, res) => {
+    res.render('emergency.hbs')
+})
+
+
+app.get('/progress', (req, res) => {
+    res.render('progress.hbs')
+})
+
+
 app.post('/home', async (req, res) => {
     try{
         const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
@@ -246,9 +269,19 @@ app.post('/home', async (req, res) => {
 })
 
 
-// app.get('/map', (req, res) => {
-//     res.render('sample.hbs')
-// })
+//app.patch
+app.patch('/home', async(req, res) => {
+    try{
+        const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
+        console.log(thought)
+        res.render('home.hbs', {
+            username: req.session.username
+        })
+    } catch(e){
+
+    }
+})
+
 
 
 app.get('*', (req, res) => {

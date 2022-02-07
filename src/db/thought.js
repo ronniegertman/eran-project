@@ -43,9 +43,14 @@ function findPublicThoughts(){
     return Thought.find({privacy: 'public'})
 }
 
+function getThoughtById(id) {
+    return Thought.findById(id)
+}
+
 
 module.exports = {
     newThought,
     findAllThoughts,
-    findPublicThoughts
+    findPublicThoughts,
+    getThoughtById
 }

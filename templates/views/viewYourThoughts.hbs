@@ -23,8 +23,14 @@
                             let paragraph = document.createElement('p')
                             paragraph.textContent = data[i].date + ' ' + data[i].content
 
+                            let edit = document.createElement('a')
+                            edit.href = '/editThought/' + data[i]._id
+                            edit.textContent = 'EDIT'
+
                             document.body.appendChild(header)
                             document.body.appendChild(paragraph)
+                            document.body.appendChild(space)
+                            document.body.appendChild(edit)
                             document.body.appendChild(space)
                         }
                     })

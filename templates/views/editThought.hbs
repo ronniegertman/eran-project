@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+        <body>
+            <form action="/home" method="patch">
+                <input type="text" name="header" value={{header}}><br><br>
+                <textarea name="content" rows="10" cols="50">{{content}}</textarea><br><br>
+
+                <input type="radio" id="privateForUser" name="choose">
+                <label for="private">Share only with myself</label><br>
+
+                <input type="radio" id="publicForUser" name="choose">
+                <label for="public">Share publicly for all users and Eran volunteers</label><br>
+
+                <input type="radio" id="forEran" name="choose">
+                <label for="eran">Share with Eran team</label><br><br>
+                
+                <input type="hidden" value="" id="1" name="chosen">
+
+                <input type="submit">
+            </form>
+            <script src="/js/shareOption.js" defer></script>
+        </body>
+</html>

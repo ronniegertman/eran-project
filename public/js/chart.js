@@ -7,13 +7,13 @@ fetch('/emotionRates').then(respone => {
     labels.push(jsonArray[i].date)
   }
 
+  
   //creating the data array
   let dataArray = []
   for(let i = 0; i< jsonArray.length; i++){
     dataArray.push(jsonArray[i].rate)
   }
 
-  console.log('script')
 
   //creating the chart
   var ctx = document.getElementById('myChart').getContext('2d');

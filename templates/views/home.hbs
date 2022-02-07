@@ -3,21 +3,30 @@
     <head>
         <meta charset="UTF-8">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="/css/home.css">
     </head>
         <body>
-            <h1>Welcome back {{username}}!</h1><br><br>
-            <h3>Your progress:</h3>
-            <div>
-                <canvas id="myChart" style="position: relative; height:128px; width:100vw"></canvas>
+            <div class="fullScreen" dir="rtl">
+                <div class="menuDiv">
+                     {{>menu}}
+                </div>
+
+                <div class="screenDiv">
+                    <h1>Welcome back {{username}}!</h1><br><br>
+                    <h3>Your progress:</h3>
+                    <div>
+                        <canvas id="myChart" style="position: relative; height:128px; width:100vw"></canvas>
+                    </div>
+                    <script src="/js/chart.js"></script>
+
+                    <br><br>
+                    <h3><a href="/uploadNewThought">Add a thought</a></h3><br><br>
+
+                    <h3><a href="/viewYourThoughts">Your thoughts</a></h3><br><br>
+
+                    <h3><a href="/viewAllPublicThoughts">See what others are thinking</a></h3>
+                </div>
             </div>
-            <script src="/js/chart.js"></script>
-
-            <br><br>
-            <h3><a href="/uploadNewThought">Add a thought</a></h3><br><br>
-
-            <h3><a href="/viewYourThoughts">Your thoughts</a></h3><br><br>
-
-            <h3><a href="/viewAllPublicThoughts">See what others are thinking</a></h3>
-            
+           
         </body>
 </html>
