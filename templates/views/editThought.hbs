@@ -4,11 +4,11 @@
         
     </head>
         <body>
-            <form action="/home" method="patch">
+            <form action="/home/updated" method="post">
                 <input type="text" name="header" value={{header}}><br><br>
                 <textarea name="content" rows="10" cols="50">{{content}}</textarea><br><br>
 
-                <input type="radio" id="privateForUser" name="choose">
+                <input type="radio" id="privateForUser" name="choose" checked>
                 <label for="private">Share only with myself</label><br>
 
                 <input type="radio" id="publicForUser" name="choose">

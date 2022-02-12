@@ -5,8 +5,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Eran')
 
 console.log('connect')
 
-
-const Thought = mongoose.model('Thought', {
+const schema = new mongoose.Schema({
     username: {
         type: String,
         trim: true,
@@ -15,20 +14,27 @@ const Thought = mongoose.model('Thought', {
     header: {
         type: String,
         trim: true,
-        default: 'New thought'
+        default: 'New Thought'
     },
     content: {
         type: String,
         required: true
-    },
+    }, 
     date: {
         type: String,
         default: new printDate(new Date()).get()
-    },
+    }, 
     privacy: {
         type: String
     }
+}, {
+    timestamps: {
+        createdAt: 'createdAt',
+        updatedAt: 'updatedAt'
+    }
 })
+
+const Thought = mongoose.model('Thought', schema)
 
 function newThought(username, content, header, privacy) {
     return new Thought({username, content, header, privacy})
@@ -43,8 +49,8 @@ function findPublicThoughts(){
     return Thought.find({privacy: 'public'})
 }
 
-function getThoughtById(id) {
-    return Thought.findById(id)
+function getThoughtByIdAndUser(id, username) {
+    return Thought.findOne({ _id: id, username })
 }
 
 
@@ -52,5 +58,5 @@ module.exports = {
     newThought,
     findAllThoughts,
     findPublicThoughts,
-    getThoughtById
+    getThoughtByIdAndUser
 }

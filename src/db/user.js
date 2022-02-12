@@ -4,8 +4,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Eran')
 
 console.log('connect')
 
-
-const User = mongoose.model('User', {
+const schema = new mongoose.Schema({
     username: {
         type: String,
         trim: true,
@@ -13,7 +12,6 @@ const User = mongoose.model('User', {
     },
     password: {
         type: String,
-        trim: true,
         required: true
     },
     nickname: {
@@ -21,7 +19,15 @@ const User = mongoose.model('User', {
         trim: true,
         required: true
     }
+}, {
+    timestamps: {
+        createdAt: 'createdAt',
+        updatedAt: 'updatedAt'
+    }
 })
+
+
+const User = mongoose.model('User', schema)
 
 function findUser(username){
     return User.find({ username })

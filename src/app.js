@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const {findUser, newUser} = require('./db/user')
-const {newThought, findAllThoughts, findPublicThoughts, getThoughtById} = require('./db/thought')
+const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser} = require('./db/thought')
 const {newRate, findAllRates} = require('./db/rate')
 const isLoggedIn = require('./middleware/isLoggedIn')
 
@@ -40,8 +40,8 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/signin', (req, res) => {
-    res.render('signin.hbs', {})
+app.get('/signup', (req, res) => {
+    res.render('signup.hbs', {})
 })
 
 
@@ -104,7 +104,8 @@ app.get('/viewAllPublicThoughts', async (req, res) => {
 
 app.get('/editThought/:id', async (req, res) => {
     try{
-        const thoughtToUpdate = await getThoughtById(req.params.id)
+        const thoughtToUpdate = await getThoughtByIdAndUser(req.params.id, req.session.username)
+        req.session.thoughtToUpdate = req.params.id
         res.render('editThought.hbs', {
             header: thoughtToUpdate.header,
             content: thoughtToUpdate.content
@@ -184,7 +185,7 @@ app.post('/', async (req, res) => {
 })
 
 
-app.post('/signin', async (req, res) => {
+app.post('/signup', async (req, res) => {
     try{
         const username = req.body.username
         const user = await findUser(username)
@@ -196,11 +197,11 @@ app.post('/signin', async (req, res) => {
                 message: 'User created successfully, please log in'
             })
         }else if(req.body.password !== req.body.repeatedPassword){
-            res.render('signin.hbs', {
+            res.render('signup.hbs', {
                 message: 'Passwords do not match'
             })
         }else{
-            res.render('signin.hbs', {
+            res.render('signup.hbs', {
                 message: 'Username already exists'
             })
         }
@@ -255,7 +256,7 @@ app.get('/progress', (req, res) => {
     res.render('progress.hbs')
 })
 
-
+//POST /home -> uploading a thought
 app.post('/home', async (req, res) => {
     try{
         const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
@@ -269,19 +270,16 @@ app.post('/home', async (req, res) => {
 })
 
 
-//app.patch
-app.patch('/home', async(req, res) => {
-    try{
-        const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
-        console.log(thought)
-        res.render('home.hbs', {
-            username: req.session.username
-        })
-    } catch(e){
+app.post('/home/updated', async (req, res) => {
+    const thoughtToUpdate = await getThoughtByIdAndUser(req.session.thoughtToUpdate, req.session.username)
+    delete req.session.thoughtToUpdate
+    thoughtToUpdate.header = req.body.header
+    thoughtToUpdate.content = req.body.content
+    thoughtToUpdate.privacy = req.body.chosen
+    await thoughtToUpdate.save()
 
-    }
+    res.send('200')
 })
-
 
 
 app.get('*', (req, res) => {

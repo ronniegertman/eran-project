@@ -5,8 +5,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Eran')
 
 console.log('connect')
 
-
-const Rate = mongoose.model('Rate', {
+const schema = new mongoose.Schema({
     username: {
         type: String,
         trim: true,
@@ -19,13 +18,18 @@ const Rate = mongoose.model('Rate', {
     rate: {
         type: Number,
         required: true
-    },
-    feelings: {
+    }, feelings: {
         type: Array,
         default: []
     }
-   
+}, {
+    timestamps: {
+        createdAt: 'createdAt',
+        updatedAt: 'updatedAt'
+    }
 })
+
+const Rate = mongoose.model('Rate', schema)
 
 function newRate(username, rate, feelings) {
     return new Rate({username, rate, feelings})
