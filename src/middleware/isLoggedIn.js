@@ -1,5 +1,5 @@
 module.exports = function isLoggedIn(req, res, next) {
-    if(req.session.username || req.path === '/' || req.path === '/signin'){
+    if(req.session.username || req.path === '/' || req.path === '/signup'){
        return next()
     }
 

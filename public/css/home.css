@@ -5,17 +5,20 @@
 
 .menuDiv{
     width: 279px;
-    flex-shrink: 0;
+    /* flex-shrink: 0; */
     height: 954px;
     left: 1149px;
     top: 60px;
     background: #FFFFFF;
     border-radius: 30px 0px 30px 20px;
+
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px 0px 30px 20px;
     
     
 }
 
-a{
+.menuText{
     text-decoration: none;
     font-family: Heebo;
     font-style: normal;
@@ -23,8 +26,21 @@ a{
     font-size: 16px;
     line-height: 23px;
     /* identical to box height */
-    
-    
     color: #000000;
 }
 
+.selectedMenuItem{
+    display: flex;
+    background: rgba(228, 239, 134, 0.19);
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.screenDiv{
+    margin-right: 40px;
+}
