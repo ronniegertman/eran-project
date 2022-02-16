@@ -12,19 +12,24 @@
                 </div>
 
                 <div class="screenDiv">
-                    <h1>Welcome back {{nickname}}!</h1><br><br>
-                    <h3>Your progress:</h3>
-                    <div>
-                        <canvas id="myChart" style="position: relative"></canvas>
+                     <div class="rightPane">
+                         <div class="topRight">
+                             <div class="moodDiv"></div>
+                             <div class="shareThoughtDiv">
+                                  <a href="/uploadNewThought">אני רוצה לשתף</a>
+                             </div>
+                         </div>
+                         <div class="progressDiv">
+                            <div>
+                                <canvas id="myChart" style="position: relative"></canvas>
+                            </div>
+                            <script src="/js/chart.js"></script>
+                         </div>
+                </div>
+                    <div class="leftPane">
+                        <div class="diaryPeakDiv"></div>
+                        <div class="recommendationDiv"></div>
                     </div>
-                    <script src="/js/chart.js"></script>
-
-                    <br><br>
-                    <h3><a href="/uploadNewThought">Add a thought</a></h3><br><br>
-
-                    <h3><a href="/viewYourThoughts">Your thoughts</a></h3><br><br>
-
-                    <h3><a href="/viewAllPublicThoughts">See what others are thinking</a></h3>
                 </div>
             </div>
            

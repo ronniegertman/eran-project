@@ -79,6 +79,7 @@ router.get('/viewAllPublicThoughts', async (req, res) => {
 router.get('/editThought/:id', async (req, res) => {
     try{
         const thoughtToUpdate = await getThoughtByIdAndUser(req.params.id, req.session.username)
+        console.log( 'update: ', thoughtToUpdate)
         req.session.thoughtToUpdate = req.params.id
         res.render('editThought.hbs', {
             header: thoughtToUpdate.header,

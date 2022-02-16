@@ -4,19 +4,20 @@
 }
 
 .menuDiv{
-    width: 279px;
+    width: 25%;
     /* flex-shrink: 0; */
-    height: 954px;
-    left: 1149px;
-    top: 60px;
+    height: 500px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 15px;
     background: #FFFFFF;
     border-radius: 30px 0px 30px 20px;
-
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-bottom: 30px;
     border-radius: 30px 0px 30px 20px;
-    
-    
 }
+
+.menuDiv {}
 
 .menuText{
     text-decoration: none;
@@ -43,4 +44,74 @@
 
 .screenDiv{
     margin-right: 40px;
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    height: 500px;
+    justify-content: space-between;
+}
+
+.rightPane{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 62%;
+}
+
+.topRight{
+    display: flex;
+    flex-direction: row;
+    /* flex-shrink: 0; */
+    /* overflow: auto; */
+    height: 23%;
+    justify-content: space-between;
+}
+
+.moodDiv{
+    background: #DEEDF6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 39%;
+}
+
+.shareThoughtDiv{
+    background: #AED5C6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 55%;
+}
+
+.progressDiv{
+    background: #FFFFFF;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    display: flex;
+    height: 70%;
+    align-content: center;
+}
+
+.leftPane{
+    display: flex;
+    width: 35%;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.diaryPeakDiv{
+    background: #DEEDF6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    height: 34%;
+}
+
+.recommendationDiv{
+    background: #FFFFFF;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    height: 62%;
 }

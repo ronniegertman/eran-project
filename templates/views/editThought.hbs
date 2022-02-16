@@ -5,7 +5,8 @@
     </head>
         <body>
             <form action="/home/updated" method="post">
-                <input type="text" name="header" value={{header}}><br><br>
+                <input type="text" name="header" value="{{header}}"><br><br>
+                {{!-- <textarea name="header1">{{header}}</textarea> --}}
                 <textarea name="content" rows="10" cols="50">{{content}}</textarea><br><br>
 
                 <input type="radio" id="privateForUser" name="choose" checked>

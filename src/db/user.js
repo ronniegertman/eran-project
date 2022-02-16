@@ -1,3 +1,4 @@
+const validator = require('validator')
 const mongoose = require('mongoose')
 
 mongoose.connect('mongodb://127.0.0.1:27017/Eran')
@@ -12,7 +13,8 @@ const schema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 7
     },
     nickname: {
         type: String,
@@ -28,6 +30,7 @@ const schema = new mongoose.Schema({
 
 
 const User = mongoose.model('User', schema)
+
 
 function findUser(username){
     return User.find({ username })
