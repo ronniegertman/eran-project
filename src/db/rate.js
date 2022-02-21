@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const printDate = require('./date')
-
 mongoose.connect('mongodb://127.0.0.1:27017/Eran')
 
 console.log('connect')
@@ -29,7 +28,15 @@ const schema = new mongoose.Schema({
     }
 })
 
+// schema.pre('save', function(next){
+//     const rate = this
+//     if(rate.isModified('rate')){
+//         const rate = new rateText(rate.feelings)
+//     } next()
+// })
+
 const Rate = mongoose.model('Rate', schema)
+
 
 function newRate(username, rate, feelings) {
     return new Rate({username, rate, feelings})

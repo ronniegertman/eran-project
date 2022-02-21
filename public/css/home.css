@@ -3,36 +3,62 @@
     flex-direction: row;
 }
 
+.logoDiv{
+    margin-left: 8px;
+    height: 15%;
+    /* height: 60%; */
+    /* width: 65%; */
+}
+
+.logoImg{
+    /* height: 7%; */
+    height: 70%;
+}
+
+
+.menuOptionsDiv{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px 0px 30px 20px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    height: 85%;
+    padding-bottom: 10%;
+}
+
+
 .menuDiv{
-    width: 25%;
+    width: 12%;
     /* flex-shrink: 0; */
     height: 500px;
     padding-top: 30px;
     padding-bottom: 30px;
     padding-right: 15px;
     background: #FFFFFF;
-    border-radius: 30px 0px 30px 20px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding-bottom: 30px;
-    border-radius: 30px 0px 30px 20px;
+    /* border-radius: 30px 0px 30px 20px; */
+    font-family: 'Heebo', sans-serif;
 }
 
-.menuDiv {}
 
 .menuText{
     text-decoration: none;
-    font-family: Heebo;
+    /* font-family: Heebo; */
     font-style: normal;
     font-weight: normal;
-    font-size: 16px;
-    line-height: 23px;
+    font-size: 12px;
+    line-height: 20px;
     /* identical to box height */
     color: #000000;
+    /* font-family: 'Heebo', sans-serif; */
 }
 
 .selectedMenuItem{
     display: flex;
-    background: rgba(228, 239, 134, 0.19);
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.menuItem{
+    display: flex;
+    align-items: center;
 }
 
 .menu{
@@ -40,22 +66,54 @@
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+    border-radius: 0px 0px 0px 20px;
+    /* box-shadow: 0px 4px 4px rgb(0 0 0 / 25%); */
+    /* border-radius: 30px 0px 30px 20px; */
 }
 
 .screenDiv{
-    margin-right: 40px;
-    width: 75%;
+    margin-right: 4%;
+    width: 90%;
     display: flex;
     flex-direction: row;
-    height: 500px;
+    height: 560px;
     justify-content: space-between;
+    font-family: 'Heebo', sans-serif;
 }
 
 .rightPane{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    width: 62%;
+    justify-content: space-between;
+    width: 58%;
+    /* padding-top: 5px; */
+}
+
+.welcome{
+    display: flex;
+    /* height: 8%; */
+    flex-direction: column;
+    padding-top: 25px;
+    align-items: flex-start;
+    margin-bottom: 5%;
+}
+
+.hello{
+    margin-left: 4px;
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 30px;
+}
+
+.happy{
+    /* width: 30%; */
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .topRight{
@@ -63,22 +121,43 @@
     flex-direction: row;
     /* flex-shrink: 0; */
     /* overflow: auto; */
-    height: 23%;
-    justify-content: space-between;
+    height: 20%;
+    justify-content: space-around;
+    margin-bottom: 10%;
 }
 
 .moodDiv{
     background: #DEEDF6;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    width: 39%;
+    width: 37%;
+    font-style: normal;
+    display: flex;
+    font-weight: bold;
+    font-size: 13px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
-.shareThoughtDiv{
-    background: #AED5C6;
+.diaryPeakDiv{
+    background: #F9E4E7;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    width: 55%;
+    width: 51%;
+    font-style: normal;
+    display: flex;
+    font-weight: bold;
+    /* font-size: 15px; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.peak{
+    text-decoration: none;
+    color: #000000;
+    font-size: 12px;
 }
 
 .progressDiv{
@@ -88,30 +167,46 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
     display: flex;
-    height: 70%;
+    height: 65%;
     align-content: center;
 }
 
 .leftPane{
     display: flex;
-    width: 35%;
+    width: 40%;
     flex-direction: column;
     align-content: space-between;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    margin-left: 1%;
+    margin-right: 3%;
+    /* background: rgba(175, 214, 200, 0.19); */
+    background: rgba(175, 214, 200, 0.19);
+    border-radius: 0px 200px 100px 0px;
+    align-items: center;
 }
 
-.diaryPeakDiv{
-    background: #DEEDF6;
+.shareThoughtDiv{
+    background: #AED5C7;
+    /* background: #DEEDF6; */
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    height: 34%;
+    height: 20%;
+    width: 70%;
 }
 
 .recommendationDiv{
-    background: #FFFFFF;
+    /* background: #FFFFFF; */
+    background: #DFEDF6;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    height: 62%;
+    height: 58%;
+    width: 70%;
+}
+
+.ways{
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
 }

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const {findUser, newUser} = require('../db/user')
 const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser} = require('../db/thought')
 const {newRate, findAllRates} = require('../db/rate')
-
+const rateText = require('../db/rateText')
 
 const router = new express.Router()
 
@@ -12,12 +12,14 @@ router.post('/', async (req, res) => {
     try{
         const username = req.body.username
         const user = await findUser(username)
+        const id = user._id
         if(user.length === 1){
             const password = req.body.password
             if(await bcrypt.compare(password, user[0].password)){
                 const sessData = req.session
                 sessData.username = username
                 sessData.nickname = req.body.nickname
+                sessData.id = id
                 res.render('feeling.hbs', {
                     username: req.session.username,
                     nickname: req.session.nickname
@@ -69,7 +71,6 @@ router.post('/range', async (req, res) => {
     const keysArray = Object.keys(jsonObject)
     const feeling = keysArray.filter(key => jsonObject[key] === true)
     req.session.feelings = feeling
-    // fs.writeFileSync(path.join(__dirname, 'feeling.json'), req.body.hiddenValue)
     res.render('range.hbs', {username: req.session.username, nickname: req.session.nickname})
 })
 
@@ -79,23 +80,25 @@ router.post('/processEmotions', async (req, res) => {
     try{
         const rate = await newRate(req.session.username, req.body.emotion, req.session.feelings)
         await rate.save()
-    } catch(e){
-        console.log(e)
-    }
-    if(emotionality <= 3){
+        req.session.feelings = undefined
+        if(emotionality <= 3){
 
-        const time = new Date().getHours()
-        let message = ""
-
-        if(2<= time && time < 8){
-             message = "Eran is currently not availble via message/chat. Please call Eran 1201 or call 101"
+            const time = new Date().getHours()
+            let message = ""
+    
+            if(2<= time && time < 8){
+                 message = "Eran is currently not availble via message/chat. Please call Eran 1201 or call 101"
+            }else{
+                 message = "Please contact Eran via message/chat or a phone call to 1202"
+            }
+    
+            res.render('emergency.hbs', { message })
         }else{
-             message = "Please contact Eran via message/chat or a phone call to 1202"
+            res.render('home.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: new rateText(rate.feelings).get(), date: rate.date})
         }
 
-        res.render('emergency.hbs', { message })
-    }else{
-        res.render('home.hbs', {username: req.session.username, nickname: req.session.nickname})
+    } catch(e){
+        console.log(e)
     }
 })
 

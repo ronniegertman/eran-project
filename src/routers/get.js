@@ -94,7 +94,9 @@ router.get('/editThought/:id', async (req, res) => {
 router.get('/home', (req, res) => {
     res.render('home.hbs', {
         username: req.session.username,
-        nickname: req.session.nickname
+        nickname: req.session.nickname,
+        emotionsPicked: 'שמחה, שלווה', 
+        date: '16/02/2022'
     })
 })
 

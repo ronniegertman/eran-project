@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link rel="stylesheet" href="/css/home.css">
@@ -8,15 +11,28 @@
         <body>
             <div class="fullScreen" dir="rtl">
                 <div class="menuDiv">
-                     {{>menu}}
+                    <div class="logoDiv">
+                        <img src="/img/logo.png"class="logoImg">
+                    </div>
+                    <div class="menuOptionsDiv">
+                        {{>menu}}
+                    </div>
                 </div>
 
                 <div class="screenDiv">
                      <div class="rightPane">
-                         <div class="topRight">
-                             <div class="moodDiv"></div>
-                             <div class="shareThoughtDiv">
-                                  <a href="/uploadNewThought">אני רוצה לשתף</a>
+                         <div class="welcome">
+                             <div class="hello">שלום {{nickname}}!</div>
+                             <div class="happy">שמחים שחזרת</div>
+                         </div>
+                         <div class="topRight" dir="auto">
+                             <div class="moodDiv">
+                                 <span style="font-size: 12px;">מצב הרוח היום</span>
+                                <span style="font-size: 12px;">{{date}}</span>
+                                 <span>{{emotionsPicked}}</span>
+                             </div>
+                             <div class="diaryPeakDiv">
+                                  <a href="/uploadNewThought" class="peak" >הצצה ליומן שלי</a>
                              </div>
                          </div>
                          <div class="progressDiv">
@@ -27,7 +43,8 @@
                          </div>
                 </div>
                     <div class="leftPane">
-                        <div class="diaryPeakDiv"></div>
+                        <p class="ways">דרכים לשיפור מצב הרוח</p>
+                        <div class="shareThoughtDiv"></div>
                         <div class="recommendationDiv"></div>
                     </div>
                 </div>
