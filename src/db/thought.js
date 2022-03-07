@@ -53,10 +53,17 @@ function getThoughtByIdAndUser(id, username) {
     return Thought.findOne({ _id: id, username })
 }
 
+function getLastThought(username){
+    return Thought.findOne({username}, {}, { sort:{
+        createdAt: -1
+    }})
+}
+
 
 module.exports = {
     newThought,
     findAllThoughts,
     findPublicThoughts,
-    getThoughtByIdAndUser
+    getThoughtByIdAndUser,
+    getLastThought
 }

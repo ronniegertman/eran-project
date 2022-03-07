@@ -47,8 +47,17 @@ function findAllRates(username) {
     return Rate.find({username})
 }
 
+function getLastRate(username){
+    return Rate.findOne({username}, {}, {
+        sort: {
+            createdAt: -1
+        }
+    })
+}
+
 
 module.exports = {
     newRate,
-    findAllRates
+    findAllRates,
+    getLastRate
 }

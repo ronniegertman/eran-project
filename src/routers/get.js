@@ -1,8 +1,9 @@
 const express = require('express')
 const {findUser, newUser} = require('../db/user')
-const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser} = require('../db/thought')
-const {newRate, findAllRates} = require('../db/rate')
+const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, getLastThought} = require('../db/thought')
+const {newRate, findAllRates, getLastRate} = require('../db/rate')
 const rateText = require('../db/rateText')
+const async = require('hbs/lib/async')
 
 const router = new express.Router()
 
@@ -35,6 +36,27 @@ router.get('/yourThoughts', async (req, res) => {
 
 
 router.get('/viewYourThoughts', async (req, res) => {
+    try{
+        const thoughtsArray = await findAllThoughts(req.session.username)
+        if(thoughtsArray.length === 0){
+            return res.render('viewYourThoughts.hbs', {
+                username: req.session.username,
+                nickname: req.session.nickname,
+                message: 'There are no past thoughts created by this user',
+                link: 'Upload a one here'
+            })
+        }
+        res.render('viewYourThoughts.hbs', {
+            username: req.session.username,
+            nickname: req.session.nickname,
+            message: 'Here are your personal thoughts'
+        })
+    } catch(e){
+        res.send(e)
+    }
+})
+
+router.get('/home/viewYourThoughts', async(req, res) => {
     try{
         const thoughtsArray = await findAllThoughts(req.session.username)
         if(thoughtsArray.length === 0){
@@ -92,11 +114,21 @@ router.get('/editThought/:id', async (req, res) => {
 })
 
 
-router.get('/home', (req, res) => {
+router.get('/home', async(req, res) => {
+    const lastRate = await getLastRate(req.session.username)
+    if(lastRate === null){
+        return res.render('home.hbs', {
+            username: req.session.username,
+            nickname: req.session.nickname,
+            emotionsPicked: 'אין עדיין תחושות...',
+            date: '16/02/2022'
+        })
+    }
+
     res.render('home.hbs', {
         username: req.session.username,
         nickname: req.session.nickname,
-        emotionsPicked: 'שמחה, שלווה', 
+        emotionsPicked: new rateText(lastRate.feelings).get(), 
         date: '16/02/2022'
     })
 })
