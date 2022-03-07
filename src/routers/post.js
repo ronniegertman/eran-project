@@ -46,7 +46,7 @@ router.post('/signup', async (req, res) => {
         const user = await findUser(username)
         if(user.length === 0 && req.body.password === req.body.repeatedPassword){
             const hashedPassword = await bcrypt.hash(req.body.password, 8)
-            const myUser = await newUser(req.body.username, hashedPassword, req.body.nickname)
+            const myUser = await newUser(req.body.username, hashedPassword)
             await myUser.save()
             res.render('login.hbs', {
                 message: 'User created successfully, please log in'

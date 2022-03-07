@@ -1,7 +1,7 @@
 const validator = require('validator')
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://127.0.0.1:27017/Eran')
+mongoose.connect('mongodb+srv://ronniegertman:ronnie100@cluster0.qjuvq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 
 console.log('connect')
     
@@ -18,8 +18,7 @@ const schema = new mongoose.Schema({
     },
     nickname: {
         type: String,
-        trim: true,
-        required: true
+        trim: true
     }
 }, {
     timestamps: {

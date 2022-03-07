@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const printDate = require('./date')
 
-mongoose.connect('mongodb://127.0.0.1:27017/Eran')
+mongoose.connect('mongodb+srv://ronniegertman:ronnie100@cluster0.qjuvq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 
 console.log('connect')
 

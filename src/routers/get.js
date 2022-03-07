@@ -2,6 +2,7 @@ const express = require('express')
 const {findUser, newUser} = require('../db/user')
 const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser} = require('../db/thought')
 const {newRate, findAllRates} = require('../db/rate')
+const rateText = require('../db/rateText')
 
 const router = new express.Router()
 
