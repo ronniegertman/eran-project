@@ -84,7 +84,7 @@ router.get('/viewAllPublicThoughts', async (req, res) => {
         if (thoughtsArray.length === 0){
             return res.render('viewAllThoughts.hbs', {
                 username: req.session.username,
-                message: 'Nobody has pulicly shared their thoughts yet',
+                message: 'Nobody has publicly shared their thoughts yet',
                 link: 'Upload a thought here'
             })
         }
