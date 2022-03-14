@@ -4,6 +4,7 @@ const {findUser, newUser} = require('../db/user')
 const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser} = require('../db/thought')
 const {newRate, findAllRates} = require('../db/rate')
 const rateText = require('../db/rateText')
+const encrypt = require('../encryption/encrypt')
 
 const router = new express.Router()
 
@@ -106,7 +107,9 @@ router.post('/processEmotions', async (req, res) => {
 //POST /home -> uploading a thought
 router.post('/home', async (req, res) => {
     try{
-        const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
+        const encryptContent = new encrypt().encrypt(req.body.content)
+        const encryptHeader = new encrypt().encrypt(req.body.header)
+        const thought = await newThought(req.session.username,encryptContent, encryptHeader, req.body.chosen).save()
         console.log(thought)
         res.render('home.hbs', {
             username: req.session.username,

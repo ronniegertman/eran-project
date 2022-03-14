@@ -12,13 +12,13 @@ const schema = new mongoose.Schema({
         required: true
     },
     header: {
-        type: String,
-        trim: true,
-        default: 'New Thought'
+        // type: String,
+        // trim: true,
+        // default: 'New Thought'
     },
     content: {
-        type: String,
-        required: true
+        // type: String,
+        // required: true
     }, 
     date: {
         type: String,
