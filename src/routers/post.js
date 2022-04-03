@@ -5,6 +5,7 @@ const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser} =
 const {newRate, findAllRates} = require('../db/rate')
 const rateText = require('../db/rateText')
 const encrypt = require('../encryption/encrypt')
+const { use } = require('bcrypt/promises')
 
 const router = new express.Router()
 
@@ -23,7 +24,9 @@ router.post('/', async (req, res) => {
                 sessData.id = id
                 res.render('feeling.hbs', {
                     username: req.session.username,
-                    nickname: req.session.nickname
+                    nickname: req.session.nickname,
+                    publicKey: user[0].publicKey,
+                    privateKey: user[0].privateKey
                 })
             }else{
                 res.render('login.hbs', {
@@ -47,7 +50,8 @@ router.post('/signup', async (req, res) => {
         const user = await findUser(username)
         if(user.length === 0 && req.body.password === req.body.repeatedPassword){
             const hashedPassword = await bcrypt.hash(req.body.password, 8)
-            const myUser = await newUser(req.body.username, hashedPassword)
+            const myUser = await newUser(req.body.username, hashedPassword, req.body.publicKey, req.body.privateKey)
+            console.log(myUser)
             await myUser.save()
             res.render('login.hbs', {
                 message: 'User created successfully, please log in'

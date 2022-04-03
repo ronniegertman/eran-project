@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <script src="/js/encryption.js"></script>
+    </head>
         <body>
 
             <form action="/signup" method="post">
                 <input type="text" placeholder="create a username" name="username" autocomplete="off">
                 <input type="password" placeholder="create a password" name="password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                 <input type="password" placeholder="confirm password" name="repeatedPassword" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                <input type="hidden" name="publicKey" id="publicKey">
+                <input type="hidden" name="privateKey" id="privateKey">                
                 <input type="submit">
             </form>
 
@@ -14,5 +18,5 @@
             <p>Already have an account></p>
             <a href="/">Log in here</a>
             
-        </body>
+        </body> 
 </html>

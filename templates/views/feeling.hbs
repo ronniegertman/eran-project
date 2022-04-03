@@ -12,6 +12,9 @@
             <button id="4" onclick="handleButton(this)" title="I am stressed">😰</button>
             <button id="5" onclick="handleButton(this)" title="I am disappointed">😩</button>
             <button id="6" onclick="handleButton(this)" title="I am calm">🙂</button>
+            
+            <input type="hidden" name="publicKey" id="publicKey" value="{{publicKey}}">
+            <input type="hidden" name="privateKey" id="privateKey" value="{{privateKey}}">
             <form action="/range" method="post">
                 <input type="hidden" id="7" name="hiddenValue" value="hello">
                 <input type="submit">
