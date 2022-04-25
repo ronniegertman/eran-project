@@ -22,19 +22,19 @@ router.post('/', async (req, res) => {
                 sessData.username = username
                 sessData.nickname = req.body.nickname
                 sessData.id = id
-                res.render('feeling.hbs', {
+                res.render('newFeeling.hbs', {
                     username: req.session.username,
                     nickname: req.session.nickname,
                     publicKey: user[0].publicKey,
                     privateKey: user[0].privateKey
                 })
             }else{
-                res.render('login.hbs', {
+                res.render('newLogin.hbs', {
                     message: 'Password is incorrect'
                 })
             }
         }else{
-            res.render('login.hbs', {
+            res.render('newLogin.hbs', {
                 messgae: 'User does not exist'
             })
         }
@@ -50,18 +50,21 @@ router.post('/signup', async (req, res) => {
         const user = await findUser(username)
         if(user.length === 0 && req.body.password === req.body.repeatedPassword){
             const hashedPassword = await bcrypt.hash(req.body.password, 8)
-            const myUser = await newUser(req.body.username, hashedPassword, req.body.publicKey, req.body.privateKey)
+            const myUser = await newUser(req.body.username, hashedPassword)
             console.log(myUser)
             await myUser.save()
-            res.render('login.hbs', {
+            console.log('User created successfully, please log in')
+            res.render('newLogin.hbs', {
                 message: 'User created successfully, please log in'
             })
         }else if(req.body.password !== req.body.repeatedPassword){
-            res.render('signup.hbs', {
+            console.log('Passwords do not match')
+            res.render('newSignup.hbs', {
                 message: 'Passwords do not match'
             })
         }else{
-            res.render('signup.hbs', {
+            console.log('Username already exists')
+            res.render('newSignup.hbs', {
                 message: 'Username already exists'
             })
         }
@@ -111,9 +114,9 @@ router.post('/processEmotions', async (req, res) => {
 //POST /home -> uploading a thought
 router.post('/home', async (req, res) => {
     try{
-        const encryptContent = new encrypt().encrypt(req.body.content)
-        const encryptHeader = new encrypt().encrypt(req.body.header)
-        const thought = await newThought(req.session.username,encryptContent, encryptHeader, req.body.chosen).save()
+        // const encryptContent = new encrypt().encrypt(req.body.content)
+        // const encryptHeader = new encrypt().encrypt(req.body.header)
+        const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
         console.log(thought)
         res.render('home.hbs', {
             username: req.session.username,

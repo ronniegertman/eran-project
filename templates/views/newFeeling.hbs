@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/feelings.css">
+    </head>
+    <body dir="rtl">
+        <div class="fullscreen">
+            <div class="right">
+                <div class="topRight">
+                    <img src="/img/eran.png" style="width: 30%;">
+                </div>
+                <div class="progBar">
+                    <img src="/img/prog1.png" style="height: 2%;">
+                </div>
+                <div class="head1">
+                    <br><br>
+                    מעקב רגשות
+                </div>
+                <div class="explenation">
+                    השאלות הבאות יעזרו לך לעקוב אחרי הרגשות והתחושות שלך.
+                    <br>
+                    המידע שיתקבל יעזור לנו להתאים המלצות עבורך ויעזור לך להיות בבקרה.
+                    <br>
+                    המידע ישמר באתר והאפשרות לראות את הרגשות תהיה זמינה עבורך בכל עת.
+                </div>
+                <div class="head2">
+                    איך המרגש?
+                </div>
+                <div class="slider">
+                    <form action="/processEmotions" method="post">
+                    <br>
+                    <input type="hidden" name="emotion" value="7" id="emo">
+                    <input type="range" min="1" max="7" value="1" id="range" name="range">
+                    <br><br>
+                    <div class="img"> 
+                        <img id="pic" src="/img/distress.png" class="pic">
+                    </div>
+                    <input type="submit" value="להמשך">
+                    </form>
+                </div>
+            </div>
+
+            <div class="left">
+                <div class="greenImg">
+                 <img src="/img/fbg.png" style="width: 70%; height: 50%;">
+                </div>
+                <div class="skip">
+                    <a href="/home">לדלג</a>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            var pic = document.getElementById('pic')
+            var slider = document.getElementById('range')
+            var emo = document.getElementById('emo')
+            slider.oninput = function() {
+                emo.value = this.value
+                console.log(emo.value)
+                if(this.value == 7){
+                    console.log('here')
+                    pic.src = '/img/great.png'
+                } else if(this.value == 6){
+                    pic.src = '/img/sababa.png'
+                } else if(this.value == 5){
+                    pic.src = '/img/okay.png'
+                } else if(this.value == 4){
+                    pic.src = '/img/notbest.png'
+                } else if(this.value == 3){
+                    pic.src = '/img/ontheface.png'
+                } else if(this.value == 2){
+                    pic.src = '/img/horibble.png'
+                } else if(this.value == 1){
+                    pic.scr = '/img/distress.png'
+                }
+            }
+            
+        </script>
+
+    </body>
+</html>

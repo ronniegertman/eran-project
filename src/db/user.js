@@ -19,15 +19,16 @@ const schema = new mongoose.Schema({
     nickname: {
         type: String,
         trim: true
-    },
-    publicKey: {
-        type: String,
-        required: true
-    },
-    privateKey: {
-        type: String,
-        required: true
     }
+    // },
+    // publicKey: {
+    //     type: String,
+    //     required: true
+    // },
+    // privateKey: {
+    //     type: String,
+    //     required: true
+    // }
 }, {
     timestamps: {
         createdAt: 'createdAt',
@@ -47,12 +48,10 @@ function checkPassword(username, password){
     return User.find({ username, password })
 }
 
-function newUser(username, password, publicKey, privateKey){
+function newUser(username, password){
     const user = new User({
         username,
         password,
-        publicKey,
-        privateKey
     })
     
     return user

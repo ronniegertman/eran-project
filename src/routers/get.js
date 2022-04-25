@@ -4,21 +4,21 @@ const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, g
 const {newRate, findAllRates, getLastRate} = require('../db/rate')
 const rateText = require('../db/rateText')
 const async = require('hbs/lib/async')
-const encrypt = require('../encryption/encrypt')
+// const encrypt = require('../encryption/encrypt')
 
 const router = new express.Router()
 
 router.get('/try', (req, res) => {
-    res.render('newLogin.hbs')
+    res.render('newFeeling.hbs')
 })
 
 router.get('/', (req, res) => {
-    res.render('login.hbs')
+    res.render('newLogin.hbs')
 })
 
 
 router.get('/signup', (req, res) => {
-    res.render('signup.hbs', {})
+    res.render('newSignup.hbs', {})
 })
 
 
@@ -34,12 +34,7 @@ router.get('/yourThoughts', async (req, res) => {
     try{
         const thoughts = await findAllThoughts(req.session.username)
         // const decryptedThoughts = thoughts.map((value) => {
-        //     value['header'] = new encrypt().decrypt(value.header)
-        //     return value
-        // })
-        // console.log(decryptedThoughts)
-
-        thoughts.forEach(value => console.log('val',new encrypt().decrypt(value.header  )))
+        // thoughts.forEach(value => console.log('val',new encrypt().decrypt(value.header  )))
         res.send(thoughts)
     } catch(e){
         console.log(e)

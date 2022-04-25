@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/login.css">
+    </head>
+    <body>
+        <div class="fullscreen" dir="rtl">
+            <div class="right">
+                            <div class="top">
+                <img src="/img/eran.png" style="width: 30%;">
+            </div>
+            <div class="middle">
+                <div class="greet">
+                    טוב שבחרת להצטרף
+                </div>
+                <div class="formAndPic">
+                    <div class="form">
+                        <form action="/signup" method="post">
+                            <input type="text" name="username" placeholder="שם משתמש" required><br>
+                            <label class="label">שם המשתמש שישמש אותך בכניסה לאתר</label><br><br>
+                            <input type="password" name="password" placeholder="סיסמה" required minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="אורך הסיסמה צריך להיות לפחות 8 תווים, הסיסמה צריכה להכיל גם אות גדולה, אות קטנה ומספר"><br>
+                            <label class="label">בחירת סיסמה חזקה תגן על הפרטיות שלך</label><br><br>
+                            <input type="password" name="repeatedPassword" placeholder="חזרה על הסיסמה" required minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="אורך הסיסמה צריך להיות לפחות 8 תווים, הסיסמה צריכה להכיל גם אות גדולה, אות קטנה ומספר"><br>
+                            <label class="label">אימות הסיסמה שלך</label><br><br><br>
+
+                            <input type="submit" value="הצטרפות לקהילה">
+                        </form>
+                </div>
+                </div>
+                <div class="createAccount">
+                    <a href="/login">אם כבר הצטרפת, יש ללחוץ כאן</a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="left2">
+              <div class="house">
+                    <img src="/img/house.png">
+                </div>
+
+        </div>
+
+        </div>
+
+    </body>
+</html>
