@@ -1,0 +1,88 @@
+<html>
+
+    <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/choose.css">
+    <script src="/js/feeling.js" defer></script>
+    </head>
+
+    <body dir="rtl">
+        <div class="fullscreen">
+            <div class="right">
+                <div class="topRight">
+                    <img src="/img/eran.png" style="width: 30%;">
+                </div>
+                <div class="progBar">
+                    <img src="/img/prog2.png" style="height: 2%;">
+                </div>
+                 <div class="head1">
+                    <br><br>
+                    מעקב רגשות
+                </div>
+                 <div class="explenation">בחירה של רגשות שהרגשת היום או ברגע זה.</div>
+                 <div class="negative">
+                     <div class="head2" dir="rtl">
+                         <br><br>
+
+                         רגשות שליליים
+                         <br>
+                     </div>
+                         <div class="list">
+                             <div class="ls1">
+                                 <button class="btn" id="1">מבוכה</button>
+                                 <button class="btn" id="2">מועקה</button>
+                                 <button class="btn" id="3">מתח  </button>
+                                 <button class="btn" id="4">ריקנות</button>
+                                 <button class="btn" id="5">שיעמום</button>
+                             </div>
+                             <div class="ls2">
+                                 <button class="btn" id="6">תקיעות</button>
+                                 <button class="btn" id="7">עייפות</button>
+                                 <button class="btn" id="8">עצבים</button>
+                                 <button class="btn" id="9">קנאה</button>
+                                 <button class="btn" id="10">תסכול</button>
+
+                             </div>
+                         </div>
+                 </div>
+            </div>
+            <div class="left">
+                <div class="positive">
+                    <div class="head3">
+                        <br><br>
+                        רגשות חיוביים
+                        <br>
+                    </div>
+                        <div class="list2">
+                            <div class="ls1">
+                                 <button class="btn" id="11">יציבות</button>
+                                 <button class="btn" id="12">כוח</button>
+                                 <button class="btn" id="13">שמחה</button>
+                                 <button class="btn" id="14">תקווה</button>
+                                 <button class="btn" id="15">חוזק</button>
+                            </div>
+                            <div class="ls2">
+                                 <button class="btn" id="16">צמיחה</button>
+                                 <button class="btn" id="17">קבלה</button>
+                                 <button class="btn" id="18">שייכות</button>
+                                 <button class="btn" id="19">ריכוז</button>
+                                 <button class="btn" id="20">אומץ</button>
+                            </div>
+                        </div>
+                </div>
+                <div>
+                    <form action="/processEmotions" method="post">
+                        <input type="hidden" id="toSend">
+                        <input type="submit" value="<    המשך"
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </body>
+
+
+</html>

@@ -9,7 +9,7 @@ const async = require('hbs/lib/async')
 const router = new express.Router()
 
 router.get('/try', (req, res) => {
-    res.render('newFeeling.hbs')
+    res.render('newChoose.hbs')
 })
 
 router.get('/', (req, res) => {

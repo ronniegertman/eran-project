@@ -33,6 +33,15 @@
     width: 60%;
 }
 
+.positive{
+    left: 52.01%;
+right: -16.18%;
+top: 27.36%;
+bottom: -18.87%;
+
+background: #E0EEF8;
+}
+
 .topRight{
     height: 15%;
     /* display: flex; */
