@@ -32,18 +32,18 @@
                      </div>
                          <div class="list">
                              <div class="ls1">
-                                 <button class="btn" id="1">מבוכה</button>
-                                 <button class="btn" id="2">מועקה</button>
-                                 <button class="btn" id="3">מתח  </button>
-                                 <button class="btn" id="4">ריקנות</button>
-                                 <button class="btn" id="5">שיעמום</button>
+                                 <button class="btn" id="1" onclick="handleButton(this)">מבוכה</button>
+                                 <button class="btn" id="2" onclick="handleButton(this)">מועקה</button>
+                                 <button class="btn" id="3" onclick="handleButton(this)">מתח  </button>
+                                 <button class="btn" id="4" onclick="handleButton(this)">ריקנות</button>
+                                 <button class="btn" id="5" onclick="handleButton(this)">שיעמום</button>
                              </div>
                              <div class="ls2">
-                                 <button class="btn" id="6">תקיעות</button>
-                                 <button class="btn" id="7">עייפות</button>
-                                 <button class="btn" id="8">עצבים</button>
-                                 <button class="btn" id="9">קנאה</button>
-                                 <button class="btn" id="10">תסכול</button>
+                                 <button class="btn" id="6" onclick="handleButton(this)">תקיעות</button>
+                                 <button class="btn" id="7" onclick="handleButton(this)">עייפות</button>
+                                 <button class="btn" id="8" onclick="handleButton(this)">עצבים</button>
+                                 <button class="btn" id="9" onclick="handleButton(this)">קנאה</button>
+                                 <button class="btn" id="10" onclick="handleButton(this)">תסכול</button>
 
                              </div>
                          </div>
@@ -58,25 +58,25 @@
                     </div>
                         <div class="list2">
                             <div class="ls1">
-                                 <button class="btn" id="11">יציבות</button>
-                                 <button class="btn" id="12">כוח</button>
-                                 <button class="btn" id="13">שמחה</button>
-                                 <button class="btn" id="14">תקווה</button>
-                                 <button class="btn" id="15">חוזק</button>
+                                 <button class="btn" id="11" onclick="handleButton(this)">יציבות</button>
+                                 <button class="btn" id="12" onclick="handleButton(this)">כוח</button>
+                                 <button class="btn" id="13" onclick="handleButton(this)">שמחה</button>
+                                 <button class="btn" id="14" onclick="handleButton(this)">תקווה</button>
+                                 <button class="btn" id="15" onclick="handleButton(this)">חוזק</button>
                             </div>
                             <div class="ls2">
-                                 <button class="btn" id="16">צמיחה</button>
-                                 <button class="btn" id="17">קבלה</button>
-                                 <button class="btn" id="18">שייכות</button>
-                                 <button class="btn" id="19">ריכוז</button>
-                                 <button class="btn" id="20">אומץ</button>
+                                 <button class="btn" id="16" onclick="handleButton(this)">צמיחה</button>
+                                 <button class="btn" id="17" onclick="handleButton(this)">קבלה</button>
+                                 <button class="btn" id="18" onclick="handleButton(this)">שייכות</button>
+                                 <button class="btn" id="19" onclick="handleButton(this)">ריכוז</button>
+                                 <button class="btn" id="20" onclick="handleButton(this)">אומץ</button>
                             </div>
                         </div>
                 </div>
                 <div>
                     <form action="/processEmotions" method="post">
-                        <input type="hidden" id="toSend">
-                        <input type="submit" value="<    המשך"
+                        <input type="hidden" id="toSend" name="hiddenValue">
+                        <input type="submit" value="<    המשך">
                     </form>
                 </div>
 

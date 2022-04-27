@@ -1,9 +1,11 @@
 var count = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+console.log('script')
 
 function handleButton(button){
+    console.log('click')
     count[button.id - 1] ++ 
     if(count[button.id - 1] % 2 === 1){
-        button.style.backgroundColor = "green"
+        button.style.backgroundColor = "rgba(30, 65, 107, 0.4)"
     }else{
         button.style.backgroundColor = "white"
     }

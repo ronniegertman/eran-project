@@ -74,23 +74,17 @@ router.post('/signup', async (req, res) => {
 })
 
 
-router.post('/range', async (req, res) => {
+router.post('/processEmotions', async (req, res) => {
+    console.log('here')
     const jsonObject = JSON.parse(req.body.hiddenValue)
     const keysArray = Object.keys(jsonObject)
     const feeling = keysArray.filter(key => jsonObject[key] === true)
-    req.session.feelings = feeling
-    res.render('range.hbs', {username: req.session.username, nickname: req.session.nickname})
-})
-
-
-router.post('/processEmotions', async (req, res) => {
-    const emotionality = req.body.emotion
     try{
-        const rate = await newRate(req.session.username, req.body.emotion, req.session.feelings)
+        const rate = await newRate(req.session.username, req.session.emotion, feeling)
         await rate.save()
-        req.session.feelings = undefined
+        const emotionality = req.session.emotion
+        req.session.emotion = undefined
         if(emotionality <= 3){
-
             const time = new Date().getHours()
             let message = ""
     
@@ -102,12 +96,20 @@ router.post('/processEmotions', async (req, res) => {
     
             res.render('emergency.hbs', { message })
         }else{
+            // res.render('range.hbs', {username: req.session.username, nickname: req.session.nickname})
             res.render('home.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: new rateText(rate.feelings).get(), date: rate.date})
         }
 
     } catch(e){
         console.log(e)
     }
+})
+
+
+router.post('/range', async (req, res) => {
+    const emotionality = req.body.emotion
+    req.session.emotion = emotionality
+    res.render('newChoose.hbs')
 })
 
 
