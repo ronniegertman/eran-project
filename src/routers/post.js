@@ -102,7 +102,7 @@ router.post('/processEmotions', async (req, res) => {
             res.render('emergency.hbs', { message })
         }else{
             // res.render('range.hbs', {username: req.session.username, nickname: req.session.nickname})
-            res.render('home.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: new rateText(rate.feelings).get(), date: rate.date})
+            res.render('newHome.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: new rateText(rate.feelings).get(), date: rate.date})
         }
 
     } catch(e){
@@ -125,7 +125,7 @@ router.post('/home', async (req, res) => {
         // const encryptHeader = new encrypt().encrypt(req.body.header)
         const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
         console.log(thought)
-        res.render('home.hbs', {
+        res.render('newHome.hbs', {
             username: req.session.username,
             nickname: req.session.nickname
         })

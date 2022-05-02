@@ -124,7 +124,7 @@ router.get('/editThought/:id', async (req, res) => {
 router.get('/home', async(req, res) => {
     const lastRate = await getLastRate(req.session.username)
     if(lastRate === null){
-        return res.render('home.hbs', {
+        return res.render('newHome.hbs', {
             username: req.session.username,
             nickname: req.session.nickname,
             emotionsPicked: 'אין עדיין תחושות...',
@@ -132,7 +132,7 @@ router.get('/home', async(req, res) => {
         })
     }
 
-    res.render('home.hbs', {
+    res.render('newHome.hbs', {
         username: req.session.username,
         nickname: req.session.nickname,
         emotionsPicked: new rateText(lastRate.feelings).get(), 
