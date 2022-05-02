@@ -60,7 +60,7 @@
     font-style: normal;
     font-weight: 900;
     font-size: 26px;
-    line-height: 15px;
+    line-height: 12px;
     text-align: right;
     color: #1E416B;
 /* padding-right: 10%; */}
@@ -76,15 +76,15 @@
     box-sizing: border-box;
     backdrop-filter: blur(4px);
     border-radius: 50px;
-    width: 60%;
-    /* margin-right: 2%; */
-    margin-top: 5%;
+    width: 40%;
+    margin-right: 7%;
+    margin-top: 3%;
     display: flex;
     margin-left: 35%;
     justify-content: space-around;
-    height: 70%;
-    padding-bottom: 3%;
-    padding-top: 3%;}
+    height: 40%;
+    padding-bottom: 1%;
+    padding-top: 1%;}
 
 .ls1{
     display: flex;
@@ -154,7 +154,7 @@ input[type=submit]{
 
     color: #FFFFFF;
     width: 30%;
-    height: 5%;
+    height: 10%;
     margin-left: 2%;
-    margin-top: 70%;
+    margin-top: 50%;
 }

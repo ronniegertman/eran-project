@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "env-cmd -f ./config/dev.env nodemon src/app.js -e js,hbs,css",
+    "start": "node src/app.js",
     "dev": "env-cmd -f ./config/dev.env nodemon src/app.js -e js,hbs,css",
     "test": "jest"
   },

@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/newHome.css">
+    </head>
+    <body dir="rtl">
+        <div class="fullscreen">
+            <div class="menu">
+                <div class="logo">
+                    <img src="/img/eran.png" height="100%" width="100%">
+                </div>
+                <div class="list">
+                    <div class="item">
+                        <img src="/img/home.png">
+                        <a href="/home">דף הבית </a>
+                    </div>
+                    <div class="item">
+                        <img src="/img/myThoughts.png">
+                        <a href="/home">היומן שלי</a>   
+                    </div>
+                    <div class="item">
+                        <img src="/img/community.png">
+                        <a href="/home">קהילה</a>
+                    </div>
+                    <div class="item">
+                        <img src="/img/help.png">
+                        <a href="/home">עזרה</a>
+                    </div>
+                    <div class="item">
+                        <img src="/img/graph.png">
+                        <a href="/home">נתונים</a>
+                    </div>
+                    <div class="item">
+                        <img src="/img/mood.png">
+                        <a href="/home">המלצות</a>
+                    </div>
+                    <div class="item">
+                        <img src="/img/settings1.png" height="30%">
+                        <a href="/home">הגדרות</a>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="welcome">
+                    <div class="name">שלום {{nickname}}!</div>
+                    <div class="happy">שמחים שחזרת.</div>
+                </div>
+
+                <div class="middle">
+                    <div class="moodToday">
+מצב הרוח שלי היום:
+                        {{date}}
+                        <br>
+                        {{emotionsPicked}}
+                    </div>
+                    <div class="recommendations">
+                        <div class="text">המלצות</div>
+                        <br>
+                        השבוע קראת 0/10 המלצות.
+                        <br><br>
+                        <a class="read">אני רוצה לקרוא</a>
+                    </div>
+                </div>
+                <div class="chart">
+                    גרף התקדמות שבועי
+                </div>
+            </div>
+            <div class="left">
+                <div class="peak">
+                    <div class="pic">
+                    <img src="/img/createToday.png" height="100%" width="100%">
+                    </div>
+                    <div class="text2">
+                        הצצה ליומנים של אחרים
+                    </div>
+                    <div class="diaryList">
+
+                    </div>
+                    <div class="link">
+                        <a>לעוד יומנים בקהילה</a>
+                    </div>
+                </div>
+                <div class="post">
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -75,11 +75,16 @@ router.post('/signup', async (req, res) => {
 
 
 router.post('/processEmotions', async (req, res) => {
-    console.log('here')
-    const jsonObject = JSON.parse(req.body.hiddenValue)
-    const keysArray = Object.keys(jsonObject)
-    const feeling = keysArray.filter(key => jsonObject[key] === true)
     try{
+        if(req.body.hiddenValue === ''){
+            return res.render('newChoose.hbs', {message: 'יש לבחור לפחות רגש אחד שחשת היום או בזמן האחרון' })
+        }
+        const jsonObject = JSON.parse(req.body.hiddenValue)
+        const keysArray = Object.keys(jsonObject)
+        const feeling = keysArray.filter(key => jsonObject[key] === true)    
+        if(feeling.length === 0){
+            return res.render('newChoose.hbs', {message: 'יש לבחור לפחות רגש אחד שחשת היום או בזמן האחרון' })   
+        }
         const rate = await newRate(req.session.username, req.session.emotion, feeling)
         await rate.save()
         const emotionality = req.session.emotion
@@ -125,7 +130,7 @@ router.post('/home', async (req, res) => {
             nickname: req.session.nickname
         })
     } catch(e){
-        console.log(e)
+        res.render('newChoose.hbs', { message: 'יש לבחור לפחות רגש אחד שחשת היום או בזמן האחרון' })
     }
 })
 
