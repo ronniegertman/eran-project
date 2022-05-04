@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
   }))
 app.use(express.json())
-app.use(require("express-session")({secret: process.env.EXPRESS_SESSION_SECRET}))  //setting up sessions for users
+app.use(require("express-session")({secret: 'cxkzjvnjkxzcvjnxcvjnjncxz'}))  //setting up sessions for users
 app.use(isLoggedIn)
 
 
