@@ -19,14 +19,24 @@ fetch('/emotionRates').then(respone => {
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
       // The type of chart we want to create
-      type: 'line',
+      type: 'bar',
 
       // The data for our dataset
       data: {
           labels,
           datasets: [{
-              label: 'How I am generally feeling',
-              backgroundColor: 'rgb(255, 99, 132)',
+              label: 'מצב הרוח שלי היום',
+              backgroundColor: function(context){
+                const index = context.dataIndex;
+                const value = context.dataset.data[index];
+                if(value <= 3){
+                  return 'rgba(232, 44, 44, 1)'
+                } else if(value > 3 && value < 6){
+                  return 'rgba(251, 197, 172, 1)'
+                }else{
+                  return 'rgba(202, 240, 143, 1)'
+                }
+              },
               borderColor: 'rgb(255, 99, 132)',
               data: dataArray,
           }]
@@ -44,6 +54,17 @@ fetch('/emotionRates').then(respone => {
                 return 'Hello world'
             }
         }
+    }, scales:{
+      yAxis: {
+        max: 7,
+        ticks: {
+          // Include a dollar sign in the ticks
+          callback: function(value, index, ticks) {
+              let dict = { 0: 'אני במצוקה', 1: 'זוועה', 2: "על הפנים", 3: 'לא משהו', 4: 'בסדר', 5: 'סבבה', 6: 'מעולה'}
+              return dict[value]
+          }
+        }
+      }
     }}
   });
 
