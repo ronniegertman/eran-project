@@ -9,7 +9,7 @@ const async = require('hbs/lib/async')
 const router = new express.Router()
 
 router.get('/try', (req, res) => {
-    res.render('newHome.hbs')
+    res.render('pubThought.hbs')
 })
 
 router.get('/', (req, res) => {
@@ -170,6 +170,22 @@ router.get('/allPublicThoughts', async (req, res) => {
     } catch(e) {
         console.log(e)
         res.status(500).send({ error: 'Something went wrong'})
+    }
+})
+
+router.get('/diary', async(req, res) => {
+    try{
+        res.render('diary.hbs')
+    } catch(e){
+        console.log(e)
+    }
+})
+
+router.get('/publicSharing', async(req, res) => {
+    try{
+        res.render('pubThought.hbs')
+    } catch(e){
+        console.log(e)
     }
 })
 

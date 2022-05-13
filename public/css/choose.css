@@ -8,7 +8,7 @@
 
 .left{
     width: 35%;
-    height: 60%;
+    margin-top: 10%;height: 60%;
     /* display: flex; */
     /* justify-content: flex-end; */
     direction: ltr;
@@ -26,7 +26,7 @@
 }
 
 .progBar{
-    padding-top: 10%;
+    padding-top: 2%;
     padding-right: 30%;
 }
 

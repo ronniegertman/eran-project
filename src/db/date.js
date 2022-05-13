@@ -4,7 +4,9 @@ class printDate{
     }
 
     get(){
-        return this.date.getDate() + '/' + this.date.getMonth() + 1 + '/' + this.date.getFullYear() + ' ' + this.date.getHours() + ':' + this.date.getMinutes()
+        const arr = this.date.toString().split(' ')
+        return arr[0] + ' '+ arr[1] + ' ' + arr[2] + ' ' + arr[3]+ ' ' + arr[4]
+
     }
 }
 

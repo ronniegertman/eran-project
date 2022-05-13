@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/uploadThought.css">
+    </head>
+    <body dir="rtl">
+        <div class="fullscreen">
+            <div class="headline">
+                שיתוף ציבורי
+                <img src="/img/openShare.png">
+            </div>
+            <div class="share">
+                <form action="/home" method="post">
+                    <input type="text" name="header" placeholder="נושא המחשבה"><br><br>
+                    <textarea name="content" placeholder="מהו האירוע?" rows="10" cols="50"></textarea><br><br>
+                    <input type="hidden" value="public" id="1" name="chosen">
+            </div>
+            <div class="sub">
+                    <input type="submit" value="הוספה ליומן שלי">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

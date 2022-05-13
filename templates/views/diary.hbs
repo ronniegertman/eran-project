@@ -4,10 +4,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link rel="stylesheet" href="/css/newHome.css">
-    </head>
-    <body dir="rtl">
+        </head>
+
+        <body dir="rtl">
         <div class="fullscreen">
             <div class="menu">
                 <div class="logo">
@@ -20,7 +20,7 @@
                     </div>
                     <div class="item">
                         <img src="/img/myThoughts.png">
-                        <a href="/diary">היומן שלי</a>   
+                        <a href="/home">היומן שלי</a>   
                     </div>
                     <div class="item">
                         <img src="/img/community.png">
@@ -44,57 +44,45 @@
                     </div>
                 </div>
             </div>
+
             <div class="main">
                 <div class="welcome">
-                    <div class="name">שלום {{nickname}}!</div>
-                    <div class="happy">שמחים שחזרת.</div>
+                    <div class="name">איך מתנהל היומן באתר?</div>
                 </div>
-
-                <div class="middle">
-                    <div class="moodToday">
-מצב הרוח שלי היום:
-                        {{date}}
+                <div class="explain">
+                    <div class="ex1">
+                        שירותי ער"ן ברשת מאפשרים לך לקבל סיוע נפשי ותמיכה רגשית באמצעות המילה הכתובה.
                         <br>
-                        {{emotionsPicked}}
+                        מתנדבי ער"ן כאן למענך, בכל ימות השנה, מקשיבים, מכילים ומסייעים לך ברגעי המשבר.
+                        <br>
+                        באפשרותך לשתף מחשבות על בסיס יומי, או לכתוב מחשבות רק עבורך.
                     </div>
-                    <div class="recommendations">
-                        <div class="text">המלצות</div>
-                        <br>
-                        השבוע קראת 0/10 המלצות.
+                    <div class="ex2">
+                        כל המחשבות הן אנונימיות ויועלו עם הכינוי שבחרת.
                         <br><br>
-                        <a class="read">אני רוצה לקרוא</a>
+                        מהו האירוע שהתרחש?
+                        <br> מה הרגשת?
+                        <br> איך פעלת באירוע?
                     </div>
                 </div>
-                <div class="chart">
-                    גרף התקדמות שבועי
-                    <canvas id="myChart" style="position: relative"></canvas>
-                     <script src="/js/chart.js"></script>
-
+                <div class="shareType">
+                    <div class="public">
+                        <img src="/img/public.png">
+                        <a href="/publicSharing">שיתוף ציבורי</a>
+                    </div>
+                    <div class="volunteers">
+                        <img src="/img/volu.png">
+                        <a>שיתוף רק למתנדבים</a>
+                    </div>
+                    <div class="private"> 
+                        <img src="/img/private.png">
+                        <a>רק אני</a>
+                    </div>
                 </div>
             </div>
+
             <div class="left">
-                <div class="peak">
-                    <div class="pic">
-                    <img src="/img/createToday.png" height="100%" width="100%">
-                    </div>
-                    <div class="text2">
-                        הצצה ליומנים של אחרים
-                    </div>
-                    <div class="diaryList">
-
-                    </div>
-                    <div class="link">
-                        <a href="/viewYourThoughts">לעוד יומנים בקהילה</a>
-                    </div>
-                </div>
-                <div class="post">
-                    <div class="text2">העלאת מחשבה ליומן שלי</div>
-                    <div class="text3">שיתוף יכול להקל על הרגשה רעה, והוא דרך מעולה לשיפור מצב הרוח.</div>
-                    <div class="share">
-                        <a href="/uploadNewThought" style="color: white;">אני רוצה לשתף</a>
-                    </div>
-                </div>
+                <img src="/img/crazykid.png">
             </div>
-        </div>
-    </body>
+        </body>
 </html>

@@ -24,14 +24,14 @@
 .greet{
     font-family: 'Rubik';
     padding: 2%;
-    padding-right: 15%;
+    padding-right: 4%;
     font-style: normal;
     font-weight: bold;
     font-size: 60px;
     line-height: 95px;
     text-align: right;
     color: #1E416B;
-}
+margin-right: 2%;}
 
 .form{
     padding: 2%;
