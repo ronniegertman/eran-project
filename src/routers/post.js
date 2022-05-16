@@ -89,7 +89,8 @@ router.post('/processEmotions', async (req, res) => {
         await rate.save()
         const emotionality = req.session.emotion
         req.session.emotion = undefined
-        if(emotionality <= 3){
+        console.log(emotionality, 'emotin')
+        if(emotionality <= 2){
             const time = new Date().getHours()
             let message = ""
     
