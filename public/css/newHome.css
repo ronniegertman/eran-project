@@ -1,7 +1,7 @@
 .fullscreen{
     display: flex;
     height: 100%;
-flex-direction: row;justify-content: space-evenly;}
+flex-direction: row;}
 
 .menu{
     width: 15%;
