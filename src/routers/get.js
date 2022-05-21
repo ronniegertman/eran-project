@@ -9,9 +9,16 @@ const async = require('hbs/lib/async')
 const router = new express.Router()
 
 router.get('/try', (req, res) => {
-    res.render('viewThoughts.hbs', {thoughts: [{name: 'נדב', age: 12}, {name: 'מישל', age:12}]}
+
+    res.render('viewThoughts.hbs', {thoughts: [{"_id":"6272cc7f61287c42b9d06f5e","username":"רוני גרטמן","header":"כיף לי","content":"אני ביום העצבנות וכיף לי!","date":"4/41/2022 18:53", "odd": true, "even": false},{"_id":"6284c0f6d8c6d590e7ec4164","username":"רוני גרטמן","header":"כיף לי","content":"שמי מישלללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללל","date":"Wed May 18 2022 12:47:21", "odd": false, "even": true},{"_id":"6284cbc6c832b31701257548","username":"רוני גרטמן","header":"הפרויקט שלי בסייבר","content":"חעללךכךלגדשצכץדשצכץךדשתצ'","date":"Wed May 18 2022 10:33:23", "odd": true, "even": false}]}
     )
 })
+
+
+router.get('/viewThought/:id', (req, res) => {
+    res.status(200).send();
+})
+
 
 router.get('/', (req, res) => {
     res.render('newLogin.hbs')
@@ -31,12 +38,36 @@ router.get('/uploadNewThought', (req, res) => {
 })
 
 
-router.get('/yourThoughts', async (req, res) => {
+router.get('/community', async (req, res) => {
     try{
         const thoughts = await findAllThoughts(req.session.username)
-        // const decryptedThoughts = thoughts.map((value) => {
-        // thoughts.forEach(value => console.log('val',new encrypt().decrypt(value.header  )))
-        res.send(thoughts)
+        let personal = []
+        thoughts.forEach((thought, index) => { 
+            personal.push({ 
+                _id: thought._id,
+                username: thought.username,
+                header: thought.header,
+                date: thought.date,
+                odd: (index + 1) % 2 == 1,
+                even: (index + 1) % 2 == 0
+            })
+        })
+        const diaries = await findPublicThoughts()
+        console.log(diaries)
+        let public = []
+        diaries.forEach((thought, index) => {
+            public.push({
+                _id: thought._id,
+                username: thought.username,
+                header: thought.header,
+                date: thought.date,
+                odd: (index + 1) % 2 == 1,
+                even: (index + 1) % 2 == 0
+            })
+        })
+
+        console.log(diaries)
+        res.render('viewThoughts.hbs', { personal, public})
     } catch(e){
         console.log(e)
     }

@@ -47,22 +47,82 @@
                 <div class="header">קהילה</div>
                 <div class="pub">יומנים ציבוריים</div>
                 <div class="pubthoughts">
-                    {{#each thoughts}}
-                    <div class="thought" id="1">
-                        <div class="name">
-                            <img src="/img/profile.png">
-                            <div class="user">{{name}}</div>
+                    <div class="col1">
+                        {{#each public}}
+                        {{#if odd}}
+                        <div class="thought" id="1">
+                            <div class="name">
+                                <img src="/img/profile.png">
+                                <div class="user">{{username}}</div>
+                            </div>
+                            <div class="date">
+                                <div class="d">{{date}}</div>
+                            </div>
+                            <div class="headline">{{header}}</div>
+                            <div class="content"><a id="mm" href="/viewThought/{{_id}}">קריאת המחשבה</a></div>
                         </div>
-                        <div class="date">
-                            12.12.22
-                        </div>
-                        <div class="headline">יום חדש הגיע</div>
-                        <div class="content">skanvkasdfkafl</div>
+                        {{/if}}
+                        {{/each}}
                     </div>
-                    {{/each}}
+                    <div class="col2">
+                        {{#each public}}
+                        {{#if even}}
+                            <div class="thought" id="1">
+                                <div class="name">
+                                    <img src="/img/profile.png">
+                                    <div class="user">{{username}}</div>
+                                </div>
+                                <div class="date">
+                                    <div class="d">{{date}}</div>
+                                </div>
+                                <div class="headline">{{header}}</div>
+                                <div class="content"><a id="mm" href="/viewThought/{{_id}}">קריאת המחשבה</a></div>
+                            </div>
+                        {{/if}}
+                        {{/each}}
+                    </div>
                 </div>
             </div>
-            <div class="left"></div>
+            <div class="left">
+                <div class="header2">חיפוש</div>
+                <div class="pub">יומנים פרטיים</div>
+                <div class="pubthoughts">
+                    <div class="col1">
+                        {{#each personal}}
+                        {{#if odd}}
+                        <div class="thought" id="1">
+                            <div class="name">
+                                <img src="/img/profile.png">
+                                <div class="user">{{username}}</div>
+                            </div>
+                            <div class="date">
+                                <div class="d">{{date}}</div>
+                            </div>
+                            <div class="headline">{{header}}</div>
+                            <div class="content"><a id="mm" href="/viewThought/{{_id}}">קריאת ועריכת המחשבה</a></div>
+                        </div>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                    <div class="col2">
+                        {{#each personal}}
+                        {{#if even}}
+                            <div class="thought" id="1">
+                                <div class="name">
+                                    <img src="/img/profile.png">
+                                    <div class="user">{{username}}</div>
+                                </div>
+                                <div class="date">
+                                    <div class="d">{{date}}</div>
+                                </div>
+                                <div class="headline">{{header}}</div>
+                                <div class="content"><a id="mm" href="/viewThought/{{_id}}">קריאת ועריכת המחשבה</a></div>
+                            </div>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
 
         </div>
     </body>
