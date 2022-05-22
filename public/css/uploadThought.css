@@ -66,3 +66,11 @@ text-align: center;
 color: #FFFFFF;
 
 }
+
+.sub{
+    font-family: 'Rubik';
+font-style: normal;
+font-weight: 600;
+font-size: 21px;
+line-height: 31px;
+}

@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/uploadThought.css">
+    </head>
+    <body dir="rtl">
+        <div class="fullscreen">
+            <div class="headline">
+                 היומן של {{username}}
+                <img src="/img/openShare.png">
+            </div>
+            <div class="share">
+                <form action="/home" method="post">
+                    <input type="text" name="header" placeholder="נושא המחשבה" value="{{header}} {{date}}" readonly="readonly"><br><br>
+                    <textarea name="content" placeholder="מהו האירוע?" rows="10" cols="50" readonly="readonly">{{content}}</textarea><br><br>
+            </div>
+            </form>
+            <div class="sub">
+                <a href="/home">חזרה לדף הבית</a>
+            </div>
+        </div>
+    </body>
+</html>

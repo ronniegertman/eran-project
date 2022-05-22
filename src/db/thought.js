@@ -59,11 +59,16 @@ function getLastThought(username){
     }})
 }
 
+function thoughtById(_id){
+    return Thought.findById(_id)
+}
+
 
 module.exports = {
     newThought,
     findAllThoughts,
     findPublicThoughts,
     getThoughtByIdAndUser,
-    getLastThought
+    getLastThought,
+    thoughtById
 }

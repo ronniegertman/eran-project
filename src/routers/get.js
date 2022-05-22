@@ -1,6 +1,6 @@
 const express = require('express')
 const {findUser, newUser} = require('../db/user')
-const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, getLastThought} = require('../db/thought')
+const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, getLastThought, thoughtById} = require('../db/thought')
 const {newRate, findAllRates, getLastRate} = require('../db/rate')
 const rateText = require('../db/rateText')
 const async = require('hbs/lib/async')
@@ -10,13 +10,14 @@ const router = new express.Router()
 
 router.get('/try', (req, res) => {
 
-    res.render('viewThoughts.hbs', {thoughts: [{"_id":"6272cc7f61287c42b9d06f5e","username":"רוני גרטמן","header":"כיף לי","content":"אני ביום העצבנות וכיף לי!","date":"4/41/2022 18:53", "odd": true, "even": false},{"_id":"6284c0f6d8c6d590e7ec4164","username":"רוני גרטמן","header":"כיף לי","content":"שמי מישלללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללללל","date":"Wed May 18 2022 12:47:21", "odd": false, "even": true},{"_id":"6284cbc6c832b31701257548","username":"רוני גרטמן","header":"הפרויקט שלי בסייבר","content":"חעללךכךלגדשצכץדשצכץךדשתצ'","date":"Wed May 18 2022 10:33:23", "odd": true, "even": false}]}
+    res.render('viewDiary.hbs', { username: 'רוני', header: 'יום חדש', date: 'Mon 12n dj', content: 'הרבה דברים יש לי להגדדדדמללמ'}
     )
 })
 
 
-router.get('/viewThought/:id', (req, res) => {
-    res.status(200).send();
+router.get('/viewThought/:id', async (req, res) => {
+    const thought = await thoughtById(req.params.id)
+    res.render('viewDiary.hbs', { username: thought.username, header: thought.header, date: thought.date, content: thought.content })
 })
 
 
