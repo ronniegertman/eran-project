@@ -124,6 +124,7 @@ router.post('/home', async (req, res) => {
     try{
         const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
         console.log(thought)
+        console.log( await thoughtById(thought._id))
         res.render('newHome.hbs', {
             username: req.session.username,
             nickname: req.session.nickname
@@ -147,7 +148,7 @@ router.post('/home/updated', async (req, res) => {
 
 router.post('/editPersonalThought/:id', async (req, res) => {
     const thoughtToUpdate = await thoughtById(req.params.id)
-    console.log('past', thoughtToUpdate)
+    console.log(req.body.chosen, 'chosen')
     thoughtToUpdate.header = req.body.header
     thoughtToUpdate.content = req.body.content
     thoughtToUpdate.privacy = req.body.chosen

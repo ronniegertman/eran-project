@@ -8,9 +8,9 @@ const async = require('hbs/lib/async')
 
 const router = new express.Router()
 
-router.get('/try', (req, res) => {
-    res.render('editDiary.hbs', { username: 'רוני', header: 'יום חדש', date: 'Mon 12n dj', content: 'הרבה דברים יש לי להגדדדדמללמ'}
-    )
+router.get('/try', async (req, res) => {
+    console.log( await thoughtById('6284cbc6c832b31701257548'))
+    res.send(200)   
 })
 
 
@@ -20,6 +20,7 @@ router.get('/viewThought/:id', async (req, res) => {
 })
 
 router.get('/editPersonalThought/:id', async(req, res) => {
+    console.log('here')
     const thought = await thoughtById(req.params.id)
     let public, eran, private
     if(thought.privacy == 'public'){
@@ -65,7 +66,6 @@ router.get('/community', async (req, res) => {
             })
         })
         const diaries = await findPublicThoughts()
-        console.log(diaries)
         let public = []
         diaries.forEach((thought, index) => {
             public.push({
@@ -77,8 +77,6 @@ router.get('/community', async (req, res) => {
                 even: (index + 1) % 2 == 0
             })
         })
-
-        console.log(diaries)
         res.render('viewThoughts.hbs', { personal, public})
     } catch(e){
         console.log(e)
@@ -152,6 +150,7 @@ router.get('/viewAllPublicThoughts', async (req, res) => {
 
 router.get('/editThought/:id', async (req, res) => {
     try{
+        console.log('here')
         const thoughtToUpdate = await getThoughtByIdAndUser(req.params.id, req.session.username)
         console.log( 'update: ', thoughtToUpdate)
         req.session.thoughtToUpdate = req.params.id

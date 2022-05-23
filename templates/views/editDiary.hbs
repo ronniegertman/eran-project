@@ -16,10 +16,10 @@
                 <form action="/editPersonalThought/{{id}}" method="post">
                     <input type="text" name="header" placeholder="נושא המחשבה" value="{{header}}"><br><br>
                     <textarea name="content" placeholder="מהו האירוע?" rows="10" cols="50">{{content}}</textarea><br><br>
-                    <select id="privacy" name="carlist" form="carform" name="chosen">
-                        <option value="public" selected="{{public}}">שיתוף ציבורי</option>
-                        <option value="eran" selected="{{eran}}">שיתוף למתנדבי ער"ן</option>
-                        <option value="private" selected="{{private}}">שיתוף פרטי</option>
+                    <select id="privacy" name="chosen" name="chosen">
+                        <option value="public" selected>שיתוף ציבורי</option>
+                        <option value="eran">שיתוף למתנדבי ער"ן</option>
+                        <option value="private">שיתוף פרטי</option>
                     </select>
             </div>
             <div class="sub">
