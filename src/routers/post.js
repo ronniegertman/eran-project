@@ -1,7 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const {findUser, newUser} = require('../db/user')
-const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser} = require('../db/thought')
+const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, thoughtById} = require('../db/thought')
 const {newRate, findAllRates} = require('../db/rate')
 const rateText = require('../db/rateText')
 const encrypt = require('../encryption/encrypt')
@@ -122,8 +122,6 @@ router.post('/range', async (req, res) => {
 //POST /home -> uploading a thought
 router.post('/home', async (req, res) => {
     try{
-        // const encryptContent = new encrypt().encrypt(req.body.content)
-        // const encryptHeader = new encrypt().encrypt(req.body.header)
         const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
         console.log(thought)
         res.render('newHome.hbs', {
@@ -145,6 +143,19 @@ router.post('/home/updated', async (req, res) => {
     await thoughtToUpdate.save()
 
     res.send('200')
+})
+
+router.post('/editPersonalThought/:id', async (req, res) => {
+    const thoughtToUpdate = await thoughtById(req.params.id)
+    console.log('past', thoughtToUpdate)
+    thoughtToUpdate.header = req.body.header
+    thoughtToUpdate.content = req.body.content
+    thoughtToUpdate.privacy = req.body.chosen
+    await thoughtToUpdate.save()
+
+    console.log(thoughtToUpdate)
+
+    res.redirect('/home')
 })
 
 

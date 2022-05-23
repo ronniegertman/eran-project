@@ -176,7 +176,7 @@ align-items: center;width: 40%;justify-content: flex-start;}
 border-radius: 0px 100px 100px 0px;
 display: flex;
 flex-direction: column;
-/* margin-left: -3; */}
+/* margin-left: -3; */height: 100%;}
 
 .header2{
     font-family: 'Rubik';

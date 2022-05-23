@@ -4,13 +4,12 @@ const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, g
 const {newRate, findAllRates, getLastRate} = require('../db/rate')
 const rateText = require('../db/rateText')
 const async = require('hbs/lib/async')
-// const encrypt = require('../encryption/encrypt')
+
 
 const router = new express.Router()
 
 router.get('/try', (req, res) => {
-
-    res.render('viewDiary.hbs', { username: 'רוני', header: 'יום חדש', date: 'Mon 12n dj', content: 'הרבה דברים יש לי להגדדדדמללמ'}
+    res.render('editDiary.hbs', { username: 'רוני', header: 'יום חדש', date: 'Mon 12n dj', content: 'הרבה דברים יש לי להגדדדדמללמ'}
     )
 })
 
@@ -20,6 +19,18 @@ router.get('/viewThought/:id', async (req, res) => {
     res.render('viewDiary.hbs', { username: thought.username, header: thought.header, date: thought.date, content: thought.content })
 })
 
+router.get('/editPersonalThought/:id', async(req, res) => {
+    const thought = await thoughtById(req.params.id)
+    let public, eran, private
+    if(thought.privacy == 'public'){
+        public = 'selected'
+    } else if(thought.privacy == 'eran'){
+        eran = 'selected'
+    } else{
+        private = 'selected'
+    }
+    res.render('editDiary.hbs', { id: thought._id, username: thought.username, header: thought.header, date: thought.date, content: thought.content, public, eran, private })
+})
 
 router.get('/', (req, res) => {
     res.render('newLogin.hbs')
