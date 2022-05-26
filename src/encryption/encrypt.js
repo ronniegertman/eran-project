@@ -1,33 +1,25 @@
-const crypto = require('crypto')
-
-class encrypt{
-    constructor(){
-        this.algorithm = 'aes-256-cbc'
-        this.key = crypto.randomBytes(32)
-        this.iv = crypto.randomBytes(16)
-    }
-
-    encrypt(text){
-        let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(this.key), this.iv)
-        let encrypted = cipher.update(text)
-        encrypted = Buffer.concat([encrypted, cipher.final()])
-        return { iv: this.iv.toString('hex'), encryptedData: encrypted.toString('hex') }
-
-    }
-
-    decrypt(text){
-        let iv = Buffer.from(text.iv, 'hex')
-        let encryptedText = Buffer.from(text.encryptedData, 'hex')
-        let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(this.key), iv)
-        let decrypted = decipher.update(encryptedText)
-        decrypted = Buffer.concat([decrypted, decipher.final()])
-        return decrypted.toString()
-    }
+// crypto module
+const crypto = require("crypto")
 
 
+function generate(){
+    return { initVector: 'kjbhjhjvhjbjbjhbjb', Securitykey: 'hbhjvjhvkjvkjbjbjbkjbjho' }
+}
+function encrypt(message, object){
+    const cipher = crypto.createCipheriv('aes-256-cbc', object.Securitykey, object.initVector);
+    let encryptedData = cipher.update(message, "utf-8", "hex");
+    encryptedData += cipher.final("hex");
+    console.log(encryptedData)
+    return encryptedData
+}
+function decrypt(message, object){
+    const decipher = crypto.createDecipheriv('aes-256-cbc', object.Securitykey, object.initVector);
+    let decryptedData = decipher.update(message, "hex", "utf-8")
+    decryptedData += decipher.final("utf8");
+    console.log(decryptedData)
+    return decryptedData
 }
 
-module.exports = encrypt
-// const e = new encrypt()
-// const e1 = e.encrypt('hello world')
-// console.log(e.decrypt(e1))
+
+module.exports = { generate, encrypt, decrypt}
+
