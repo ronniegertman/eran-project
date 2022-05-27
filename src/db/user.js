@@ -1,4 +1,3 @@
-const validator = require('validator')
 const mongoose = require('mongoose')
 
 mongoose.connect('mongodb+srv://ronniegertman:ronnie100@cluster0.qjuvq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
