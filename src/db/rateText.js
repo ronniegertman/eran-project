@@ -1,10 +1,10 @@
 class rateText{
+    //reciebes an array of feelings and returns the shortened description of the feelings
     constructor(rateArray){
         this.data = rateArray
     }
 
     get(){
-        //['שמחה', 'עציבות','רוגע']
         let str = ''
         if(this.data.length > 2){
             str = this.data[0] + ' ,' + this.data[1] + '...'

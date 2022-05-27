@@ -20,15 +20,6 @@ const schema = new mongoose.Schema({
         type: String,
         trim: true
     }
-    // },
-    // publicKey: {
-    //     type: String,
-    //     required: true
-    // },
-    // privateKey: {
-    //     type: String,
-    //     required: true
-    // }
 }, {
     timestamps: {
         createdAt: 'createdAt',

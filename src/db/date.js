@@ -1,4 +1,5 @@
 class printDate{
+    //recieves a date object and returs a date description.
     constructor(date){
         this.date = date
     }

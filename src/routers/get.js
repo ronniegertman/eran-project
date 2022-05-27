@@ -4,7 +4,7 @@ const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, g
 const {newRate, findAllRates, getLastRate} = require('../db/rate')
 const rateText = require('../db/rateText')
 const async = require('hbs/lib/async')
-
+const {generate, encrypt, decrypt} = require('../encryption/encrypt')
 
 const router = new express.Router()
 
@@ -13,14 +13,14 @@ router.get('/try', async (req, res) => {
     res.send(200)   
 })
 
-
+//viewing a thought page
 router.get('/viewThought/:id', async (req, res) => {
     const thought = await thoughtById(req.params.id)
     res.render('viewDiary.hbs', { username: thought.username, header: thought.header, date: thought.date, content: thought.content })
 })
 
+//editing a thought page
 router.get('/editPersonalThought/:id', async(req, res) => {
-    console.log('here')
     const thought = await thoughtById(req.params.id)
     let public, eran, private
     if(thought.privacy == 'public'){
@@ -33,11 +33,12 @@ router.get('/editPersonalThought/:id', async(req, res) => {
     res.render('editDiary.hbs', { id: thought._id, username: thought.username, header: thought.header, date: thought.date, content: thought.content, public, eran, private })
 })
 
+//login page 
 router.get('/', (req, res) => {
     res.render('newLogin.hbs')
 })
 
-
+//sign up page
 router.get('/signup', (req, res) => {
     res.render('newSignup.hbs', {})
 })

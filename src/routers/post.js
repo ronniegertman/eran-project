@@ -4,12 +4,12 @@ const {findUser, newUser} = require('../db/user')
 const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, thoughtById} = require('../db/thought')
 const {newRate, findAllRates} = require('../db/rate')
 const rateText = require('../db/rateText')
-const encrypt = require('../encryption/encrypt')
+const {generate, encrypt, decrypt} = require('../encryption/encrypt')
 const { use } = require('bcrypt/promises')
 
 const router = new express.Router()
 
-
+//login page
 router.post('/', async (req, res) => {
     try{
         const username = req.body.username
@@ -22,11 +22,11 @@ router.post('/', async (req, res) => {
                 sessData.username = username
                 sessData.nickname = req.body.nickname
                 sessData.id = id
+                // sessData.object = generate() //generating encryption keys
+                console.log(req.session.object)
                 res.render('newFeeling.hbs', {
                     username: req.session.username,
                     nickname: req.session.nickname,
-                    publicKey: user[0].publicKey,
-                    privateKey: user[0].privateKey
                 })
             }else{
                 res.render('newLogin.hbs', {
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-
+//creating a new user
 router.post('/signup', async (req, res) => {
     try{
         const username = req.body.username
@@ -73,7 +73,7 @@ router.post('/signup', async (req, res) => {
     }
 })
 
-
+//saving the rate to the db, and encrypting it, sending decrypted data to client
 router.post('/processEmotions', async (req, res) => {
     try{
         if(req.body.hiddenValue === ''){
@@ -81,7 +81,8 @@ router.post('/processEmotions', async (req, res) => {
         }
         const jsonObject = JSON.parse(req.body.hiddenValue)
         const keysArray = Object.keys(jsonObject)
-        const feeling = keysArray.filter(key => jsonObject[key] === true)    
+        const feeling = keysArray.filter(key => jsonObject[key] === true)
+        // feeling.forEach(feeling => encrypt(feeling, req.session.object))    
         if(feeling.length === 0){
             return res.render('newChoose.hbs', {message: 'יש לבחור לפחות רגש אחד שחשת היום או בזמן האחרון' })   
         }
@@ -89,21 +90,12 @@ router.post('/processEmotions', async (req, res) => {
         await rate.save()
         const emotionality = req.session.emotion
         req.session.emotion = undefined
-        console.log(emotionality, 'emotin')
+
         if(emotionality <= 2){
-            const time = new Date().getHours()
-            let message = ""
-    
-            if(2<= time && time < 8){
-                 message = "Eran is currently not availble via message/chat. Please call Eran 1201 or call 101"
-            }else{
-                 message = "Please contact Eran via message/chat or a phone call to 1202"
-            }
-    
-            res.render('emergency.hbs', { message })
+              res.render('emergency.hbs', { message })
         }else{
-            // res.render('range.hbs', {username: req.session.username, nickname: req.session.nickname})
-            res.render('newHome.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: new rateText(rate.feelings).get(), date: rate.date})
+            // const feelArray = feeling.forEach(feeling => decrypt(feeling, req.session.object))
+            res.render('newHome.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: new rateText(feeling).get(), date: rate.date})
         }
 
     } catch(e){
@@ -111,7 +103,7 @@ router.post('/processEmotions', async (req, res) => {
     }
 })
 
-
+//choosing a range of feeling page
 router.post('/range', async (req, res) => {
     const emotionality = req.body.emotion
     req.session.emotion = emotionality
@@ -122,8 +114,12 @@ router.post('/range', async (req, res) => {
 //POST /home -> uploading a thought
 router.post('/home', async (req, res) => {
     try{
+        //encrypt data if the thought is private
+        // if(req.body.chosen == 'private'){
+        //     req.body.content = encrypt(req.body.content, req.session.object)
+        //     req.body.header = encrypt(req.body.header, req.session.object)
+        // }
         const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
-        console.log(thought)
         console.log( await thoughtById(thought._id))
         res.render('newHome.hbs', {
             username: req.session.username,
@@ -134,24 +130,20 @@ router.post('/home', async (req, res) => {
     }
 })
 
-
-router.post('/home/updated', async (req, res) => {
-    const thoughtToUpdate = await getThoughtByIdAndUser(req.session.thoughtToUpdate, req.session.username)
-    delete req.session.thoughtToUpdate
-    thoughtToUpdate.header = req.body.header
-    thoughtToUpdate.content = req.body.content
-    thoughtToUpdate.privacy = req.body.chosen
-    await thoughtToUpdate.save()
-
-    res.send('200')
-})
-
+//edit thought page
 router.post('/editPersonalThought/:id', async (req, res) => {
     const thoughtToUpdate = await thoughtById(req.params.id)
-    console.log(req.body.chosen, 'chosen')
-    thoughtToUpdate.header = req.body.header
-    thoughtToUpdate.content = req.body.content
     thoughtToUpdate.privacy = req.body.chosen
+
+    //encrypting the thought if it is private
+    // if(thoughtToUpdate.privacy == 'private'){
+    //     thoughtToUpdate.content = encrypt(req.body.content, req.session.object)
+    //     thoughtToUpdate.header = encrypt(req.body.header, req.session.object)
+    // } else{
+        thoughtToUpdate.content = req.body.content
+        thoughtToUpdate.header = req.body.header
+    // }
+    
     await thoughtToUpdate.save()
 
     console.log(thoughtToUpdate)
