@@ -4,7 +4,7 @@ const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, g
 const {newRate, findAllRates, getLastRate} = require('../db/rate')
 const rateText = require('../db/rateText')
 const async = require('hbs/lib/async')
-const {generate, encrypt, decrypt} = require('../encryption/encrypt')
+const encryption = require('../encryption/encrypt')
 
 const router = new express.Router()
 
@@ -21,7 +21,12 @@ router.get('/viewThought/:id', async (req, res) => {
 
 //editing a thought page
 router.get('/editPersonalThought/:id', async(req, res) => {
+    //decrypting encryption on private thoughts
     const thought = await thoughtById(req.params.id)
+    if(thought.privacy == 'private'){
+        thought.header = new encryption().decrypt(thought.header)
+        thought.content = new encryption().decrypt(thought.content)
+    }
     let public, eran, private
     if(thought.privacy == 'public'){
         public = 'selected'
@@ -43,19 +48,17 @@ router.get('/signup', (req, res) => {
     res.render('newSignup.hbs', {})
 })
 
-
-router.get('/uploadNewThought', (req, res) => {
-    res.render('uploadNewThought.hbs', {
-        username: req.session.username,
-        nickname: req.session.nickname
-    })
-})
-
-
+//community page 
 router.get('/community', async (req, res) => {
     try{
         const thoughts = await findAllThoughts(req.session.username)
         let personal = []
+        for(var i=0; i<thoughts.length; i++){
+             //decrypt thought header if it is private
+            if(thoughts[i].privacy == 'private'){
+                thoughts[i].header = new encryption().decrypt(thoughts[i].header)
+            }
+        }
         thoughts.forEach((thought, index) => { 
             personal.push({ 
                 _id: thought._id,
@@ -84,87 +87,7 @@ router.get('/community', async (req, res) => {
     }
 })
 
-
-router.get('/viewYourThoughts', async (req, res) => {
-    try{
-        const thoughtsArray = await findAllThoughts(req.session.username)
-        if(thoughtsArray.length === 0){
-            return res.render('viewYourThoughts.hbs', {
-                username: req.session.username,
-                nickname: req.session.nickname,
-                message: 'There are no past thoughts created by this user',
-                link: 'Upload a one here'
-            })
-        }
-        res.render('viewYourThoughts.hbs', {
-            username: req.session.username,
-            nickname: req.session.nickname,
-            message: 'Here are your personal thoughts'
-        })
-    } catch(e){
-        res.send(e)
-    }
-})
-
-router.get('/home/viewYourThoughts', async(req, res) => {
-    try{
-        const thoughtsArray = await findAllThoughts(req.session.username)
-        if(thoughtsArray.length === 0){
-            return res.render('viewYourThoughts.hbs', {
-                username: req.session.username,
-                nickname: req.session.nickname,
-                message: 'There are no past thoughts created by this user',
-                link: 'Upload a one here'
-            })
-        }
-        res.render('viewYourThoughts.hbs', {
-            username: req.session.username,
-            nickname: req.session.nickname,
-            message: 'Here are your personal thoughts'
-        })
-    } catch(e){
-        res.send(e)
-    }
-})
-
-
-router.get('/viewAllPublicThoughts', async (req, res) => {
-    try{
-        const thoughtsArray = await findPublicThoughts()
-        if (thoughtsArray.length === 0){
-            return res.render('viewAllThoughts.hbs', {
-                username: req.session.username,
-                message: 'Nobody has publicly shared their thoughts yet',
-                link: 'Upload a thought here'
-            })
-        }
-        res.render('viewAllThoughts.hbs', {
-            username: req.session.username,
-            nickname: req.session.nickname,
-            message: 'Here is what everybody is thinking about'
-        })
-    } catch(e){
-        res.send('error')
-    }
-})
-
-
-router.get('/editThought/:id', async (req, res) => {
-    try{
-        console.log('here')
-        const thoughtToUpdate = await getThoughtByIdAndUser(req.params.id, req.session.username)
-        console.log( 'update: ', thoughtToUpdate)
-        req.session.thoughtToUpdate = req.params.id
-        res.render('editThought.hbs', {
-            header: thoughtToUpdate.header,
-            content: thoughtToUpdate.content
-        })
-    } catch(e){
-        res.send(e)
-    }
-})
-
-
+//home page
 router.get('/home', async(req, res) => {
     const lastRate = await getLastRate(req.session.username)
     if(lastRate === null){
@@ -175,7 +98,10 @@ router.get('/home', async(req, res) => {
             date: '16/02/2022'
         })
     }
-
+    let array = lastRate.feelings
+    for (var i=0; i<array.length; i++){
+       array[i] = new encryption().decrypt(array[i]) 
+    }
     res.render('newHome.hbs', {
         username: req.session.username,
         nickname: req.session.nickname,
@@ -184,7 +110,7 @@ router.get('/home', async(req, res) => {
     })
 })
 
-
+//all emotion rates of a user
 router.get('/emotionRates', async (req, res) => {
     try{
         const rates = await findAllRates(req.session.username)
@@ -206,17 +132,7 @@ router.get('/emotionRates', async (req, res) => {
     }
 })
 
-
-router.get('/allPublicThoughts', async (req, res) => {
-    try{
-        const publicThoughts = await findPublicThoughts()
-        res.send(publicThoughts)
-    } catch(e) {
-        console.log(e)
-        res.status(500).send({ error: 'Something went wrong'})
-    }
-})
-
+//diary page
 router.get('/diary', async(req, res) => {
     try{
         res.render('diary.hbs')
@@ -225,6 +141,7 @@ router.get('/diary', async(req, res) => {
     }
 })
 
+//pulic thought sharing
 router.get('/publicSharing', async(req, res) => {
     try{
         res.render('pubThought.hbs')
@@ -233,6 +150,7 @@ router.get('/publicSharing', async(req, res) => {
     }
 })
 
+//eran thought sharing
 router.get('/eranSharing', (req, res) => {
     try{
         res.render('erThought.hbs')
@@ -241,6 +159,7 @@ router.get('/eranSharing', (req, res) => {
     }
 })
 
+//private thought sharing
 router.get('/privateSharing', (req, res) => {
     try{
         res.render('privThought.hbs')
@@ -249,16 +168,12 @@ router.get('/privateSharing', (req, res) => {
     }
 })
 
+//emergency help page
 router.get('/emergency', (req, res) => {
     res.render('emergency.hbs')
 })
 
-
-router.get('/progress', (req, res) => {
-    res.render('progress.hbs')
-})
-
-
+//error page (if user is looking for a page that does not exist)
 router.get('*', (req, res) => {
     res.render('404.hbs')
 })

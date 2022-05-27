@@ -28,12 +28,6 @@ const schema = new mongoose.Schema({
     }
 })
 
-// schema.pre('save', function(next){
-//     const rate = this
-//     if(rate.isModified('rate')){
-//         const rate = new rateText(rate.feelings)
-//     } next()
-// })
 
 const Rate = mongoose.model('Rate', schema)
 

@@ -4,7 +4,7 @@ const {findUser, newUser} = require('../db/user')
 const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, thoughtById} = require('../db/thought')
 const {newRate, findAllRates} = require('../db/rate')
 const rateText = require('../db/rateText')
-const {generate, encrypt, decrypt} = require('../encryption/encrypt')
+const encryption = require('../encryption/encrypt')
 const { use } = require('bcrypt/promises')
 
 const router = new express.Router()
@@ -22,7 +22,6 @@ router.post('/', async (req, res) => {
                 sessData.username = username
                 sessData.nickname = req.body.nickname
                 sessData.id = id
-                // sessData.object = generate() //generating encryption keys
                 res.render('newFeeling.hbs', {
                     username: req.session.username,
                     nickname: req.session.nickname,
@@ -80,21 +79,28 @@ router.post('/processEmotions', async (req, res) => {
         }
         const jsonObject = JSON.parse(req.body.hiddenValue)
         const keysArray = Object.keys(jsonObject)
-        const feeling = keysArray.filter(key => jsonObject[key] === true)
-        // feeling.forEach(feeling => encrypt(feeling, req.session.object))    
+        const feeling = keysArray.filter(key => jsonObject[key] === true)  
         if(feeling.length === 0){
             return res.render('newChoose.hbs', {message: 'יש לבחור לפחות רגש אחד שחשת היום או בזמן האחרון' })   
         }
+
+        for(var i=0; i<feeling.length; i++){
+            feeling[i] = new encryption().encrypt(feeling[i])
+        }
+
         const rate = await newRate(req.session.username, req.session.emotion, feeling)
         await rate.save()
         const emotionality = req.session.emotion
-        req.session.emotion = undefined
+        req.session.emotion = undefined         
 
         if(emotionality <= 2){
-              res.render('emergency.hbs', { message })
+              res.render('emergency.hbs')
         }else{
-            // const feelArray = feeling.forEach(feeling => decrypt(feeling, req.session.object))
-            res.render('newHome.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: new rateText(feeling).get(), date: rate.date})
+            for(var i=0; i<feeling.length; i++){
+                feeling[i] = new encryption().decrypt(feeling[i])
+            }
+            console.log(feeling)
+            res.render('newHome.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: (new rateText(feeling).get()), date: rate.date})
         }
 
     } catch(e){
@@ -114,10 +120,10 @@ router.post('/range', async (req, res) => {
 router.post('/home', async (req, res) => {
     try{
         //encrypt data if the thought is private
-        // if(req.body.chosen == 'private'){
-        //     req.body.content = encrypt(req.body.content, req.session.object)
-        //     req.body.header = encrypt(req.body.header, req.session.object)
-        // }
+        if(req.body.chosen == 'private'){
+            req.body.content = new encryption().encrypt(req.body.content)
+            req.body.header = new encryption().encrypt(req.body.header)
+        }
         const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
         console.log( await thoughtById(thought._id))
         res.render('newHome.hbs', {
@@ -135,13 +141,13 @@ router.post('/editPersonalThought/:id', async (req, res) => {
     thoughtToUpdate.privacy = req.body.chosen
 
     //encrypting the thought if it is private
-    // if(thoughtToUpdate.privacy == 'private'){
-    //     thoughtToUpdate.content = encrypt(req.body.content, req.session.object)
-    //     thoughtToUpdate.header = encrypt(req.body.header, req.session.object)
-    // } else{
+    if(thoughtToUpdate.privacy == 'private'){
+        thoughtToUpdate.content = new encryption().encrypt(req.body.content)
+        thoughtToUpdate.header = new encryption().encrypt(req.body.header)
+    } else{
         thoughtToUpdate.content = req.body.content
         thoughtToUpdate.header = req.body.header
-    // }
+    }
     
     await thoughtToUpdate.save()
 
