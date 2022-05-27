@@ -23,7 +23,6 @@ router.post('/', async (req, res) => {
                 sessData.nickname = req.body.nickname
                 sessData.id = id
                 // sessData.object = generate() //generating encryption keys
-                console.log(req.session.object)
                 res.render('newFeeling.hbs', {
                     username: req.session.username,
                     nickname: req.session.nickname,
