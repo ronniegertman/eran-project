@@ -8,11 +8,6 @@ const encryption = require('../encryption/encrypt')
 
 const router = new express.Router()
 
-router.get('/try', async (req, res) => {
-    console.log( await thoughtById('6284cbc6c832b31701257548'))
-    res.send(200)   
-})
-
 //viewing a thought page
 router.get('/viewThought/:id', async (req, res) => {
     const thought = await thoughtById(req.params.id)
@@ -40,6 +35,9 @@ router.get('/editPersonalThought/:id', async(req, res) => {
 
 //login page 
 router.get('/', (req, res) => {
+    console.log('session', req.session)
+    delete req.session
+    console.log('session', req.session)
     res.render('newLogin.hbs')
 })
 
@@ -95,7 +93,7 @@ router.get('/home', async(req, res) => {
             username: req.session.username,
             nickname: req.session.nickname,
             emotionsPicked: 'אין עדיין תחושות...',
-            date: '16/02/2022'
+            date: lastRate.date
         })
     }
     let array = lastRate.feelings
@@ -106,7 +104,7 @@ router.get('/home', async(req, res) => {
         username: req.session.username,
         nickname: req.session.nickname,
         emotionsPicked: new rateText(lastRate.feelings).get(), 
-        date: '16/02/2022'
+        date: lastRate.date
     })
 })
 
