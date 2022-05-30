@@ -22,13 +22,4 @@ class encryption{
    }
 }
 
-const feeling = ['עברית', 'zkc', 'שמי', 'מישל', 'רוני']
-for( var i=0; i<feeling.length; i++){
-    feeling[i] = new encryption().encrypt(feeling[i])
-}
-console.log(feeling)
-for( var i=0; i<feeling.length; i++){
-    feeling[i] = new encryption().decrypt(feeling[i])
-}
-console.log(feeling)
 module.exports = encryption

@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="/css/data.css">
+    </head>
+    <body dir="rtl">
+        <div class="fullscreen">
+            {{> menu}}
+
+            <div class="main">
+                <div class="header">נתונים</div>
+                <div class="notifications">
+                    עדכונים
+                    <div class="listnote">
+                        <div class="it">נטלי הגיב/ה לך על המחשבה</div>
+                        <div class="it">שלומית פרסמ/ה פוסט</div>
+                        <div class="it">רוי הגיב/ה לך על המחשבה</div>
+                    </div>
+                </div>
+                <div class="graph">
+                    גרף התקדמות שבועי
+                    <br>
+                    <canvas id="myChart" style="position: relative"></canvas>
+                    <script src="/js/chart.js"></script>
+                </div>
+            </div>
+
+            <div class="left">
+                <div class="week">
+                    השבוע הכי טוב בחודש: ינואר
+                    <div class="date">
+                        13/01/22 - 20/01/22
+                    </div>
+                    בשבוע זה הרגשת בממוצע מעולה
+                    <a href="/diary" class="link">למעבר ליומן של השבוע הזה</a>
+                </div>
+                <div class="activity">
+                    פעילות שבועית באתר
+                    <img src="/img/circle.png">
+                    <div class="precent">
+                        68%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -6,6 +6,7 @@ const {newRate, findAllRates} = require('../db/rate')
 const rateText = require('../db/rateText')
 const encryption = require('../encryption/encrypt')
 const { use } = require('bcrypt/promises')
+const async = require('hbs/lib/async')
 
 const router = new express.Router()
 
@@ -88,11 +89,13 @@ router.post('/processEmotions', async (req, res) => {
             feeling[i] = new encryption().encrypt(feeling[i])
         }
 
+
         const rate = await newRate(req.session.username, req.session.emotion, feeling)
         await rate.save()
         const emotionality = req.session.emotion
         req.session.emotion = undefined         
 
+        
         if(emotionality <= 2){
               res.render('emergency.hbs')
         }else{
@@ -134,6 +137,20 @@ router.post('/home', async (req, res) => {
         res.render('newChoose.hbs', { message: 'יש לבחור לפחות רגש אחד שחשת היום או בזמן האחרון' })
     }
 })
+
+//like on a post 
+router.post('/community/:id', async(req, res) => {
+    const thought = await thoughtById(req.params.id)
+    if(thought.likes.includes(req.session.username)){
+        thought.likes = thought.likes.filter(item => item !== req.session.username)
+    } else{
+        thought.likes.push(req.session.username)
+    }
+    await thought.save()
+    console.log(thought.likes)
+    res.redirect('/community')
+})
+
 
 //edit thought page
 router.post('/editPersonalThought/:id', async (req, res) => {

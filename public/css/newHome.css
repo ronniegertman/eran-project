@@ -331,7 +331,12 @@ width: 20%;
 }
 
 .text{
-    color: #FFFFFF;
+    /* color: #FFFFFF; */
+    text-decoration: none;
+}
+
+.textDiary{
+    color: white;
     text-decoration: none;
 }
 

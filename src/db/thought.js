@@ -26,6 +26,10 @@ const schema = new mongoose.Schema({
     }, 
     privacy: {
         type: String
+    }, 
+    likes: {
+        type: Array,
+        default: []
     }
 }, {
     timestamps: {

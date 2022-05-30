@@ -5,8 +5,13 @@ const {newRate, findAllRates, getLastRate} = require('../db/rate')
 const rateText = require('../db/rateText')
 const async = require('hbs/lib/async')
 const encryption = require('../encryption/encrypt')
+const printDate = require('../db/date')
 
 const router = new express.Router()
+
+router.get('/try', async(req, res) => {
+    res.render('data.hbs')
+})
 
 //viewing a thought page
 router.get('/viewThought/:id', async (req, res) => {
@@ -64,7 +69,8 @@ router.get('/community', async (req, res) => {
                 header: thought.header,
                 date: thought.date,
                 odd: (index + 1) % 2 == 1,
-                even: (index + 1) % 2 == 0
+                even: (index + 1) % 2 == 0,
+                likes: thought.likes.length
             })
         })
         const diaries = await findPublicThoughts()
@@ -76,7 +82,8 @@ router.get('/community', async (req, res) => {
                 header: thought.header,
                 date: thought.date,
                 odd: (index + 1) % 2 == 1,
-                even: (index + 1) % 2 == 0
+                even: (index + 1) % 2 == 0,
+                likes: thought.likes.length
             })
         })
         res.render('viewThoughts.hbs', { personal, public})
@@ -93,7 +100,7 @@ router.get('/home', async(req, res) => {
             username: req.session.username,
             nickname: req.session.nickname,
             emotionsPicked: 'אין עדיין תחושות...',
-            date: lastRate.date
+            date: new printDate(new Date()).get()
         })
     }
     let array = lastRate.feelings
@@ -169,6 +176,10 @@ router.get('/privateSharing', (req, res) => {
 //emergency help page
 router.get('/emergency', (req, res) => {
     res.render('emergency.hbs')
+})
+
+router.get('/data', (req, res) => {
+    res.render('data.hbs')
 })
 
 //error page (if user is looking for a page that does not exist)
