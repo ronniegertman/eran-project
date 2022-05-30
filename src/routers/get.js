@@ -40,10 +40,13 @@ router.get('/editPersonalThought/:id', async(req, res) => {
 
 //login page 
 router.get('/', (req, res) => {
-    console.log('session', req.session)
     delete req.session
-    console.log('session', req.session)
     res.render('newLogin.hbs')
+})
+
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => console.log(err))
+    res.redirect('/')
 })
 
 //sign up page
