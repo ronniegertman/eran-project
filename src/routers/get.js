@@ -9,10 +9,6 @@ const printDate = require('../db/date')
 
 const router = new express.Router()
 
-router.get('/try', async(req, res) => {
-    res.render('data.hbs')
-})
-
 //viewing a thought page
 router.get('/viewThought/:id', async (req, res) => {
     const thought = await thoughtById(req.params.id)
@@ -44,7 +40,6 @@ router.get('/', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    console.log(req.session)
     req.session.destroy((err) => console.log(err))
     res.redirect('/')
 })
@@ -93,8 +88,8 @@ router.get('/community', async (req, res) => {
         })
         res.render('viewThoughts.hbs', { personal, public})
     } catch(e){
-        console.log(e)
-    }
+            res.render('newLogin.hbs', { message: 'קרתה שגיאה... '})
+        }
 })
 
 //home page
@@ -138,7 +133,7 @@ router.get('/emotionRates', async (req, res) => {
             res.send(rates)
         }
     } catch(e){
-        console.log(e)
+        res.render('newLogin.hbs', {message: 'קרתה שגיאה...'})
     }
 })
 
@@ -147,7 +142,7 @@ router.get('/diary', async(req, res) => {
     try{
         res.render('diary.hbs')
     } catch(e){
-        console.log(e)
+        res.render('newLogin.hbs', { message: 'קרתה שגיאה'})
     }
 })
 
@@ -156,7 +151,7 @@ router.get('/publicSharing', async(req, res) => {
     try{
         res.render('pubThought.hbs')
     } catch(e){
-        console.log(e)
+        res.render('newLogin.hbs', { message: 'קרתה שגיאה'})
     }
 })
 
@@ -165,7 +160,7 @@ router.get('/eranSharing', (req, res) => {
     try{
         res.render('erThought.hbs')
     } catch(e){
-        console.log(e)
+        res.render('newLogin.hbs', { message: 'קרתה שגיאה'})
     }
 })
 
@@ -174,7 +169,7 @@ router.get('/privateSharing', (req, res) => {
     try{
         res.render('privThought.hbs')
     } catch(e){
-        console.log(e)
+        res.render('newLogin.hbs', { message: 'קרתה שגיאה'})
     }
 })
 

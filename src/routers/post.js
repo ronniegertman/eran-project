@@ -29,12 +29,12 @@ router.post('/', async (req, res) => {
                 })
             }else{
                 res.render('newLogin.hbs', {
-                    message: 'Password is incorrect'
+                    message: 'שם המשתמש או הסיסמה שגויים...'
                 })
             }
         }else{
             res.render('newLogin.hbs', {
-                messgae: 'User does not exist'
+                messgae: 'שם המשתמש או הסיסמה שגויים...'
             })
         }
     } catch(e){
@@ -57,14 +57,12 @@ router.post('/signup', async (req, res) => {
                 message: 'User created successfully, please log in'
             })
         }else if(req.body.password !== req.body.repeatedPassword){
-            console.log('Passwords do not match')
             res.render('newSignup.hbs', {
-                message: 'Passwords do not match'
+                message: 'הסיסמאות לא תואמות...'
             })
         }else{
-            console.log('Username already exists')
             res.render('newSignup.hbs', {
-                message: 'Username already exists'
+                message: 'שם המשתמש כבר קיים...'
             })
         }
     } catch(e){
@@ -108,6 +106,7 @@ router.post('/processEmotions', async (req, res) => {
 
     } catch(e){
         console.log(e)
+        res.redirect('/')
     }
 })
 
@@ -131,7 +130,7 @@ router.post('/home', async (req, res) => {
         res.redirect('/home')
     } catch(e){
         console.log(e)
-        res.render('newChoose.hbs', { message: 'יש לבחור לפחות רגש אחד שחשת היום או בזמן האחרון' })
+        res.render('newLogin.hbs', { message: 'קרתה שגיאה...'})
     }
 })
 

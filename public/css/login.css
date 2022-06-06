@@ -33,6 +33,16 @@
     color: #1E416B;
 margin-right: 2%;}
 
+.formAndPic{
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 15px;
+    text-align: right;
+    color: black;
+}
+
 .form{
     padding: 2%;
     padding-right: 8%;
