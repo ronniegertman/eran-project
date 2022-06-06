@@ -40,11 +40,11 @@ router.get('/editPersonalThought/:id', async(req, res) => {
 
 //login page 
 router.get('/', (req, res) => {
-    delete req.session
     res.render('newLogin.hbs')
 })
 
 router.get('/logout', (req, res) => {
+    console.log(req.session)
     req.session.destroy((err) => console.log(err))
     res.redirect('/')
 })
@@ -71,6 +71,7 @@ router.get('/community', async (req, res) => {
                 username: thought.username,
                 header: thought.header,
                 date: thought.date,
+                //check if even or odd
                 odd: (index + 1) % 2 == 1,
                 even: (index + 1) % 2 == 0,
                 likes: thought.likes.length
@@ -84,6 +85,7 @@ router.get('/community', async (req, res) => {
                 username: thought.username,
                 header: thought.header,
                 date: thought.date,
+                //check if even or odd
                 odd: (index + 1) % 2 == 1,
                 even: (index + 1) % 2 == 0,
                 likes: thought.likes.length

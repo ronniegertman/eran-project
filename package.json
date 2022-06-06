@@ -20,8 +20,7 @@
     "express-session": "^1.17.2",
     "hbs": "^4.2.0",
     "mongoose": "^6.1.6",
-    "nodemon": "^2.0.16",
-    "random": "^3.0.6"
+    "nodemon": "^2.0.16"
   },
   "devDependencies": {
     "jest": "^27.5.1"

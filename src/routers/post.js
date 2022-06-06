@@ -2,7 +2,7 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const {findUser, newUser} = require('../db/user')
 const {newThought, findAllThoughts, findPublicThoughts, getThoughtByIdAndUser, thoughtById} = require('../db/thought')
-const {newRate, findAllRates} = require('../db/rate')
+const {newRate, findAllRates, getLastRate} = require('../db/rate')
 const rateText = require('../db/rateText')
 const encryption = require('../encryption/encrypt')
 const { use } = require('bcrypt/promises')
@@ -15,14 +15,14 @@ router.post('/', async (req, res) => {
     try{
         const username = req.body.username
         const user = await findUser(username)
-        const id = user._id
         if(user.length === 1){
             const password = req.body.password
             if(await bcrypt.compare(password, user[0].password)){
                 const sessData = req.session
                 sessData.username = username
                 sessData.nickname = req.body.nickname
-                sessData.id = id
+                req.session.save()
+                console.log('session',req.session)
                 res.render('newFeeling.hbs', {
                     username: req.session.username,
                     nickname: req.session.nickname,
@@ -128,12 +128,9 @@ router.post('/home', async (req, res) => {
             req.body.header = new encryption().encrypt(req.body.header)
         }
         const thought = await newThought(req.session.username, req.body.content, req.body.header, req.body.chosen).save()
-        console.log( await thoughtById(thought._id))
-        res.render('newHome.hbs', {
-            username: req.session.username,
-            nickname: req.session.nickname
-        })
+        res.redirect('/home')
     } catch(e){
+        console.log(e)
         res.render('newChoose.hbs', { message: 'יש לבחור לפחות רגש אחד שחשת היום או בזמן האחרון' })
     }
 })
