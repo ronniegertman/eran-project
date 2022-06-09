@@ -36,7 +36,7 @@
                     <input type="range" min="1" max="7" value="1" id="range" name="range">
                     <br><br>
                     <div class="img"> 
-                        <img id="pic" src="/img/distress.png" class="pic">
+                        <img id="pic" class="pic">
                     </div>
                     <input type="submit" value="להמשך">
                     </form>
@@ -58,6 +58,7 @@
             var pic = document.getElementById('pic')
             var slider = document.getElementById('range')
             var emo = document.getElementById('emo')
+            pic.src = '/img/distress.png'
             slider.oninput = function() {
                 emo.value = this.value
                 console.log(emo.value)
@@ -74,8 +75,8 @@
                     pic.src = '/img/ontheface.png'
                 } else if(this.value == 2){
                     pic.src = '/img/horibble.png'
-                } else if(this.value == 1){
-                    pic.scr = '/img/distress.png'
+                } else{
+                    pic.src = '/img/distress.png'
                 }
             }
             
