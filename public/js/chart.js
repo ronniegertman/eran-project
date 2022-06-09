@@ -60,7 +60,7 @@ fetch('/emotionRates').then(respone => {
         ticks: {
           // Include a dollar sign in the ticks
           callback: function(value, index, ticks) {
-              let dict = { 0: 'אני במצוקה', 1: 'זוועה', 2: "על הפנים", 3: 'לא משהו', 4: 'בסדר', 5: 'סבבה', 6: 'מעולה'}
+              let dict = { 1: 'אני במצוקה', 2: 'זוועה', 3: "על הפנים", 4: 'לא משהו', 5: 'בסדר', 6: 'סבבה', 7: 'מעולה'}
               return dict[value]
           }
         }
