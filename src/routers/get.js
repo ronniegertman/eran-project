@@ -53,6 +53,7 @@ router.get('/signup', (req, res) => {
 router.get('/community', async (req, res) => {
     try{
         const thoughts = await findAllThoughts(req.session.username)
+        console.log(thoughts)
         let personal = []
         for(var i=0; i<thoughts.length; i++){
              //decrypt thought header if it is private
@@ -95,12 +96,28 @@ router.get('/community', async (req, res) => {
 //home page
 router.get('/home', async(req, res) => {
     const lastRate = await getLastRate(req.session.username)
+
+    const publicThoughts = await findPublicThoughts()
+    let lastPosts = []
+    for(var i=0; i< publicThoughts.length; i++){
+        lastPosts.push({ username: publicThoughts[i].username, id: publicThoughts[i]._id })
+        if(i >= 2){
+            break
+        }
+    }
+
+    console.log('posts', lastPosts)
+
+    const isEmpty = lastPosts.length === 0
+
     if(lastRate === null){
         return res.render('newHome.hbs', {
             username: req.session.username,
             nickname: req.session.nickname,
             emotionsPicked: 'אין עדיין תחושות...',
-            date: new printDate(new Date()).get()
+            date: new printDate(new Date()).get(),
+            lastPosts,
+            isEmpty
         })
     }
     let array = lastRate.feelings
@@ -111,7 +128,9 @@ router.get('/home', async(req, res) => {
         username: req.session.username,
         nickname: req.session.nickname,
         emotionsPicked: new rateText(lastRate.feelings).get(), 
-        date: lastRate.date
+        date: lastRate.date,
+        lastPosts,
+        isEmpty
     })
 })
 
@@ -171,6 +190,11 @@ router.get('/privateSharing', (req, res) => {
     } catch(e){
         res.render('newLogin.hbs', { message: 'קרתה שגיאה'})
     }
+})
+
+
+router.get('/feelings', (req, res) => {
+    res.render('newFeeling.hbs')
 })
 
 //emergency help page

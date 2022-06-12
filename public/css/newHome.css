@@ -343,3 +343,12 @@ width: 20%;
 .bottom{
     display: flex;
 flex-direction: row;justify-content: space-evenly;}
+
+.diaryList{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2%;
+    text-decoration: none;
+}

@@ -41,7 +41,8 @@ const schema = new mongoose.Schema({
 const Thought = mongoose.model('Thought', schema)
 
 function newThought(username, content, header, privacy) {
-    return new Thought({username, content, header, privacy})
+    const d = new printDate(new Date()).get()
+    return new Thought({ username, header, content, date: d, privacy })
     
 }
 
@@ -50,7 +51,7 @@ function findAllThoughts(username) {
 }
 
 function findPublicThoughts(){
-    return Thought.find({privacy: 'public'})
+    return Thought.find({privacy: 'public'}).sort({ createdAt: -1 })
 }
 
 function getThoughtByIdAndUser(id, username) {

@@ -24,11 +24,11 @@
                         {{emotionsPicked}}
                     </div>
                     <div class="recommendations">
-                        <div class="text">המלצות</div>
+                        <div class="text">בחירת תחושות</div>
                         <br>
-                        השבוע קראת 0/10 המלצות.
+                        מומלץ לבחור את תחושותיך מספר פעמים ביום
                         <br><br>
-                        <a class="read">אני רוצה לקרוא</a>
+                        <a class="read" href="/feelings">אני רוצה לבחור</a>
                     </div>
                 </div>
                 <div class="chart">
@@ -47,10 +47,21 @@
                         הצצה ליומנים של אחרים
                     </div>
                     <div class="diaryList">
-
+                        {{#if isEmpty}}
+                        <div class="text3">
+                            אין כרגע יומנים ציבוריים...
+                        </div>
+                        {{/if}}
+                        {{#each lastPosts}}
+                            <div class="diaryItem">
+                                <img src="/img/heart.png">
+                                <a href="/viewThought/{{id}}">היומן של {{username}}</a>
+                            </div>
+                            <br>
+                        {{/each}}
                     </div>
                     <div class="link">
-                        <a href="/viewYourThoughts">לעוד יומנים בקהילה</a>
+                        <a href="/community">לעוד יומנים בקהילה</a>
                     </div>
                 </div>
                 <div class="post">

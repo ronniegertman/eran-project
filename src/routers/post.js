@@ -101,7 +101,8 @@ router.post('/processEmotions', async (req, res) => {
                 feeling[i] = new encryption().decrypt(feeling[i])
             }
             console.log(feeling)
-            res.render('newHome.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: (new rateText(feeling).get()), date: rate.date})
+            // res.render('newHome.hbs', {username: req.session.username, nickname: req.session.nickname, emotionsPicked: (new rateText(feeling).get()), date: rate.date})
+            res.redirect('/home')
         }
 
     } catch(e){
