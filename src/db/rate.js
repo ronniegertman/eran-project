@@ -1,3 +1,4 @@
+const e = require('express')
 const mongoose = require('mongoose')
 const printDate = require('./date')
 mongoose.connect('mongodb+srv://ronniegertman:ronnie100@cluster0.qjuvq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
@@ -49,6 +50,7 @@ function getLastRate(username){
     })
 }
 
+getLastRate('רוני גרטמן').then(rate => console.log(rate))
 
 module.exports = {
     newRate,

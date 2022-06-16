@@ -20,6 +20,7 @@ router.post('/', async (req, res) => {
             if(await bcrypt.compare(password, user[0].password)){
                 const sessData = req.session
                 sessData.username = username
+                sessData.id = user[0]._id
                 sessData.nickname = req.body.nickname
                 req.session.save()
                 console.log('session',req.session)

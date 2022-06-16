@@ -25,6 +25,7 @@
     <script>
         const url = window.location.href
         const id = url.split('/')[url.split('/').length - 1]
+        console.log(url)
     
         var socket = io()
 
@@ -69,7 +70,6 @@
     })
 
     socket.on('eran-link', (url) => {
-    console.log('eran')
       var item = document.createElement('li');
       var link = document.createElement('a');
       link.textContent = 'למעבר לשירותי ער"ן'
@@ -79,6 +79,7 @@
       window.scrollTo(0, document.body.scrollHeight);
 
     })
+
   
     </script>
   </body>

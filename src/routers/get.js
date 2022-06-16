@@ -113,6 +113,7 @@ router.get('/home', async(req, res) => {
 
     if(lastRate === null){
         return res.render('newHome.hbs', {
+            id: req.session.id,
             username: req.session.username,
             nickname: req.session.nickname,
             emotionsPicked: 'אין עדיין תחושות...',
@@ -126,6 +127,7 @@ router.get('/home', async(req, res) => {
        array[i] = new encryption().decrypt(array[i]) 
     }
     res.render('newHome.hbs', {
+        id: req.session.id,
         username: req.session.username,
         nickname: req.session.nickname,
         emotionsPicked: new rateText(lastRate.feelings).get(), 

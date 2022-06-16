@@ -3,6 +3,8 @@ const isLoggedIn = require('./middleware/isLoggedIn')
 const getRouter = require('./routers/get')
 const postRouter = require('./routers/post')
 const { getLastRate } = require('./db/rate')
+const { isFeeling, getFeelings } = require('./utils/functions')
+const badFeelingsRec = require('./utils/feelingObject')
 const encryption = require('./encryption/encrypt')
 const http = require('http')
 const socketio = require('socket.io')
@@ -50,6 +52,7 @@ io.on('connection', (socket) => {
   let userId = ''
   socket.on('id', (id, callback) => {
     userId = id
+    console.log(userId, 'userId')
     callback('ok')
   })
 
@@ -65,8 +68,6 @@ io.on('connection', (socket) => {
       
       io.emit('welcome', 'הרגשות האחרונים שהרגשת הם: '+ lastRate.feelings)
       
-
-      const badFeelingsRec = require('./utils/feelingObject')
 
       for(var i=0; i<lastRate.feelings.length; i++){
 
@@ -105,8 +106,28 @@ io.on('connection', (socket) => {
         io.emit('welcome', 'איזה באסה... כדאי לפנות לקבלת עזרה')
         io.emit('eran-link', '/emergency')
       }, 1000)
+    } else if(isFeeling(msg)) {
+        io.emit('chat message', msg)
+        console.log('here')
+        const feelings = getFeelings(msg)
+        console.log(feelings)
+        for(var i=0; i<feelings.length; i++){
+
+          const value = badFeelingsRec[feelings[i]]
+          
+          if(value){
+            io.emit('welcome', 'מצאתי המלצה שתשפר את רגש ה'+ feelings[i])
+            io.emit('link', value)
+          }
+        }
+        io.emit('welcome', 'תודה על השימוש בבוט ERANITY')
+        
     } else{
       io.emit('chat message', msg)
+      io.emit('welcome', 'לא הצלחתי להבין את התחושות שלך... אני מפנה אותך לקבלת עזרה')
+      io.emit('welcome', 'תודה על השימוש שלך בבוט ERANITY')
+      io.emit('eran-link', '/emergency')
+
     }
     
   });
