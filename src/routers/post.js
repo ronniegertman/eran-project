@@ -151,7 +151,12 @@ router.post('/community/:id', async(req, res) => {
 
 //edit thought page
 router.post('/editPersonalThought/:id', async (req, res) => {
+
     const thoughtToUpdate = await thoughtById(req.params.id)
+    if(thoughtToUpdate.username !== req.session.username){
+         return res.redirect('/home')
+    }
+
     thoughtToUpdate.privacy = req.body.chosen
 
     //encrypting the thought if it is private

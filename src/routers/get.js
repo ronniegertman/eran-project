@@ -6,8 +6,9 @@ const rateText = require('../db/rateText')
 const async = require('hbs/lib/async')
 const encryption = require('../encryption/encrypt')
 const printDate = require('../db/date')
-
+    
 const router = new express.Router()
+
 
 //viewing a thought page
 router.get('/viewThought/:id', async (req, res) => {
@@ -192,7 +193,7 @@ router.get('/privateSharing', (req, res) => {
     }
 })
 
-
+//choosing feelings if the user wants to choose them again after loggind in
 router.get('/feelings', (req, res) => {
     res.render('newFeeling.hbs')
 })
