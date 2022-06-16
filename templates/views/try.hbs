@@ -19,7 +19,7 @@
   <body>
     <ul id="messages" dir="rtl"></ul>
     <form id="form" action="">
-      <input id="input" autocomplete="off" dir="rtl" /><button>שליחה</button>
+      <input id="input" autocomplete="off" dir="rtl" /><button id="button">שליחה</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -34,6 +34,7 @@
 
         var form = document.getElementById('form');
         var input = document.getElementById('input');
+        var button = document.getElementById('button');
 
         form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -65,6 +66,18 @@
         item.appendChild(link)
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
+    })
+
+    socket.on('eran-link', (url) => {
+    console.log('eran')
+      var item = document.createElement('li');
+      var link = document.createElement('a');
+      link.textContent = 'למעבר לשירותי ער"ן'
+      link.href = url;
+      item.appendChild(link);
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+
     })
   
     </script>

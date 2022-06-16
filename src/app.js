@@ -37,6 +37,7 @@ app.use(require("express-session")({secret: 'cxkzjvnjkxzcvjnxcvjnjncxz'}))  //se
 app.use(isLoggedIn)
 
 app.get('/io/:username', (req, res) => {
+  //checking access 
   if(req.params.username === req.session.username)
   {
     return res.render('try.hbs')
@@ -46,7 +47,6 @@ app.get('/io/:username', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-
   let userId = ''
   socket.on('id', (id, callback) => {
     userId = id
@@ -71,14 +71,17 @@ io.on('connection', (socket) => {
       for(var i=0; i<lastRate.feelings.length; i++){
 
         const value = badFeelingsRec[lastRate.feelings[i]]
-        console.log('value', value)
-        console.log(lastRate.feelings[i])
+        
         if(value){
           io.emit('welcome', 'מצאתי המלצה שתשפר את רגש ה'+ lastRate.feelings[i])
           io.emit('link', value)
         }
 
       }
+      setTimeout(() => {
+        io.emit('welcome', 'האם ההמלצות שלי עזרו לך? (כן/לא)  ')
+      }, 2000)
+      
     }else{
       io.emit('welcome', 'לא מצאתי תחושות שהזנת במערכת...')
       io.emit('welcome', 'מהן התחושות שלך?')
@@ -89,7 +92,23 @@ io.on('connection', (socket) => {
  
 
   socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
+    if(msg === 'כן'){
+      io.emit('chat message', msg);
+      setTimeout(() => {
+        io.emit('welcome', 'איזה יופי! אני שמח שהצלחתי לעזור :) ')
+        io.emit('welcome', 'תודה שהשתמשת בבוט של ERANITY')
+      }, 1000)
+      
+    } else if(msg === 'לא'){
+      io.emit('chat message', msg)
+      setTimeout(() => {
+        io.emit('welcome', 'איזה באסה... כדאי לפנות לקבלת עזרה')
+        io.emit('eran-link', '/emergency')
+      }, 1000)
+    } else{
+      io.emit('chat message', msg)
+    }
+    
   });
 
   socket.on('disconnect', () => {
