@@ -20,6 +20,10 @@ router.get('/viewThought/:id', async (req, res) => {
 router.get('/editPersonalThought/:id', async(req, res) => {
     //decrypting encryption on private thoughts
     const thought = await thoughtById(req.params.id)
+    if(thought.username !== req.session.username){
+        return res.render('newLogin.hbs', { message: 'פעולה לא מאושרת' })
+    }
+
     if(thought.privacy == 'private'){
         thought.header = new encryption().decrypt(thought.header)
         thought.content = new encryption().decrypt(thought.content)
