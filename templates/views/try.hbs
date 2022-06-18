@@ -64,6 +64,7 @@
         var link = document.createElement('a')
         link.textContent = 'קבלת ההמלצה'
         link.href = msg;
+        link.target = '_blank'
         item.appendChild(link)
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);

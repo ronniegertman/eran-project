@@ -50,8 +50,6 @@ function getLastRate(username){
     })
 }
 
-getLastRate('רוני גרטמן').then(rate => console.log(rate))
-
 module.exports = {
     newRate,
     findAllRates,

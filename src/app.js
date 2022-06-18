@@ -39,6 +39,8 @@ app.use(require("express-session")({secret: 'cxkzjvnjkxzcvjnxcvjnjncxz'}))  //se
 app.use(isLoggedIn)
 
 app.get('/io/:username', (req, res) => {
+
+  console.log('here')
   //checking access 
   if(req.params.username === req.session.username)
   {
